@@ -1,0 +1,19 @@
+source "http://rubygems.org"
+
+
+
+group :development do
+  gem "pry"
+end
+
+
+group :default do
+  gem "ohm"
+  gem "ohm-contrib"
+  gem "sinatra", :require => "sinatra/base"
+  gem "sinatra-contrib"
+  gem "nokogiri"
+end
+
+
+
