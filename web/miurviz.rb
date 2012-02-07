@@ -5,10 +5,10 @@ require "json"
 require "../lib/miur.rb"
 
 class Miurviz < Sinatra::Base
+
   configure :development do
     register Sinatra::Reloader
   end
-
 
   set :public_folder, File.dirname(__FILE__) + '/static'
 
