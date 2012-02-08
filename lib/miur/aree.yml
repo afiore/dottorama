@@ -1,0 +1,794 @@
+--- 
+"01": 
+  :id: 
+  - MAT
+  - INF
+  :name: Scienze matematiche e informatiche
+  :settori: 
+  - :id: MAT/01
+    :name: Logica matematica
+  - :id: MAT/02
+    :name: Algebra
+  - :id: MAT/03
+    :name: Geometria
+  - :id: MAT/04
+    :name: Matematiche complementari
+  - :id: MAT/05
+    :name: ANALISI MATEMATICA
+  - :id: MAT/06
+    :name: "PROBABILIT\xC3\x80 E STATISTICA MATEMATICA"
+  - :id: MAT/07
+    :name: FISICA MATEMATICA
+  - :id: MAT/08
+    :name: ANALISI NUMERICA
+  - :id: MAT/09
+    :name: RICERCA OPERATIVA
+  - :id: INF/01
+    :name: Informatica
+"02": 
+  :id: FIS
+  :name: Scienze fisiche
+  :settori: 
+  - :id: FIS/01
+    :name: FISICA SPERIMENTALE
+  - :id: FIS/02
+    :name: FISICA TEORICA, MODELLI E METODI MATEMATICI
+  - :id: FIS/03
+    :name: FISICA DELLA MATERIA
+  - :id: FIS/04
+    :name: FISICA NUCLEARE E SUBNUCLEARE
+  - :id: FIS/05
+    :name: ASTRONOMIA E ASTROFISICA
+  - :id: FIS/06
+    :name: FISICA PER IL SISTEMA TERRA E IL MEZZO CIRCUMTERRESTRE
+  - :id: FIS/07
+    :name: FISICA APPLICATA (A BENI CULTURALI, AMBIENTALI, BIOLOGIA E MEDICINA)
+  - :id: FIS/08
+    :name: DIDATTICA E STORIA DELLA FISICA
+"03": 
+  :id: CHIM
+  :name: Scienze chimiche
+  :settori: 
+  - :id: CHIM/01
+    :name: CHIMICA ANALITICA
+  - :id: CHIM/02
+    :name: CHIMICA FISICA
+  - :id: CHIM/03
+    :name: CHIMICA GENERALE E INORGANICA
+  - :id: CHIM/04
+    :name: CHIMICA INDUSTRIALE
+  - :id: CHIM/05
+    :name: SCIENZA E TECNOLOGIA DEI MATERIALI POLIMERICI
+  - :id: CHIM/06
+    :name: CHIMICA ORGANICA
+  - :id: CHIM/07
+    :name: FONDAMENTI CHIMICI DELLE TECNOLOGIE
+  - :id: CHIM/08
+    :name: CHIMICA FARMACEUTICA
+  - :id: CHIM/09
+    :name: FARMACEUTICO TECNOLOGICO APPLICATIVO
+  - :id: CHIM/10
+    :name: CHIMICA DEGLI ALIMENTI
+  - :id: CHIM/11
+    :name: CHIMICA E BIOTECNOLOGIA DELLE FERMENTAZIONI
+  - :id: CHIM/12
+    :name: CHIMICA DELL'AMBIENTE E DEI BENI CULTURALI
+"04": 
+  :id: GEO
+  :name: Scienze della terra
+  :settori: 
+  - :id: GEO/01
+    :name: PALEONTOLOGIA E PALEOECOLOGIA
+  - :id: GEO/02
+    :name: GEOLOGIA STRATIGRAFICA E SEDIMENTOLOGICA
+  - :id: GEO/03
+    :name: GEOLOGIA STRUTTURALE
+  - :id: GEO/04
+    :name: GEOGRAFIA FISICA E GEOMORFOLOGIA
+  - :id: GEO/05
+    :name: GEOLOGIA APPLICATA
+  - :id: GEO/06
+    :name: MINERALOGIA
+  - :id: GEO/07
+    :name: PETROLOGIA E PETROGRAFIA
+  - :id: GEO/08
+    :name: GEOCHIMICA E VULCANOLOGIA
+  - :id: GEO/09
+    :name: GEORISORSE MINERARIE E APPLICAZIONI MINERALOGICO- PETROGRAFICHE PER L'AMBIENTE ED I BENI CULTURALI
+  - :id: GEO/10
+    :name: GEOFISICA DELLA TERRA SOLIDA
+  - :id: GEO/11
+    :name: GEOFISICA APPLICATA
+  - :id: GEO/12
+    :name: OCEANOGRAFIA E FISICA DELL'ATMOSFERA
+"05": 
+  :id: BIO
+  :name: Scienze biologiche
+  :settori: 
+  - :id: BIO/01
+    :name: BOTANICA GENERALE
+  - :id: BIO/02
+    :name: BOTANICA SISTEMATICA
+  - :id: BIO/03
+    :name: BOTANICA AMBIENTALE E APPLICATA
+  - :id: BIO/04
+    :name: FISIOLOGIA VEGETALE
+  - :id: BIO/05
+    :name: ZOOLOGIA
+  - :id: BIO/06
+    :name: "ANATOMIA COMPARATA E CITOLOGIA "
+  - :id: BIO/07
+    :name: ECOLOGIA
+  - :id: BIO/08
+    :name: ANTROPOLOGIA
+  - :id: BIO/09
+    :name: "FISIOLOGIA "
+  - :id: BIO/10
+    :name: BIOCHIMICA
+  - :id: BIO/11
+    :name: BIOLOGIA MOLECOLARE
+  - :id: BIO/12
+    :name: BIOCHIMICA CLINICA E BIOLOGIA MOLECOLARE CLINICA
+  - :id: BIO/13
+    :name: BIOLOGIA APPLICATA
+  - :id: BIO/14
+    :name: FARMACOLOGIA
+  - :id: BIO/15
+    :name: BIOLOGIA FARMACEUTICA
+  - :id: BIO/16
+    :name: ANATOMIA UMANA
+  - :id: BIO/17
+    :name: ISTOLOGIA
+  - :id: BIO/18
+    :name: GENETICA
+  - :id: BIO/19
+    :name: MICROBIOLOGIA GENERALE
+"06": 
+  :id: MED
+  :name: Scienze mediche
+  :settori: 
+  - :id: MED/01
+    :name: "STATISTICA MEDICA "
+  - :id: MED/02
+    :name: "STORIA DELLA MEDICINA "
+  - :id: MED/03
+    :name: GENETICA MEDICA
+  - :id: MED/04
+    :name: "PATOLOGIA GENERALE "
+  - :id: MED/05
+    :name: "PATOLOGIA CLINICA "
+  - :id: MED/06
+    :name: "ONCOLOGIA MEDICA "
+  - :id: MED/07
+    :name: "MICROBIOLOGIA E MICROBIOLOGIA CLINICA "
+  - :id: MED/08
+    :name: "ANATOMIA PATOLOGICA "
+  - :id: MED/09
+    :name: "MEDICINA INTERNA "
+  - :id: MED/10
+    :name: "MALATTIE DELL'APPARATO RESPIRATORIO "
+  - :id: MED/11
+    :name: "MALATTIE DELL'APPARATO CARDIOVASCOLARE "
+  - :id: MED/12
+    :name: "GASTROENTEROLOGIA "
+  - :id: MED/13
+    :name: "ENDOCRINOLOGIA "
+  - :id: MED/14
+    :name: "NEFROLOGIA "
+  - :id: MED/15
+    :name: "MALATTIE DEL SANGUE "
+  - :id: MED/16
+    :name: "REUMATOLOGIA "
+  - :id: MED/17
+    :name: "MALATTIE INFETTIVE "
+  - :id: MED/18
+    :name: "CHIRURGIA GENERALE "
+  - :id: MED/19
+    :name: "CHIRURGIA PLASTICA "
+  - :id: MED/20
+    :name: "CHIRURGIA PEDIATRICA E INFANTILE "
+  - :id: MED/21
+    :name: CHIRURGIA TORACICA
+  - :id: MED/22
+    :name: CHIRURGIA VASCOLARE
+  - :id: MED/23
+    :name: "CHIRURGIA CARDIACA "
+  - :id: MED/24
+    :name: UROLOGIA
+  - :id: MED/25
+    :name: PSCHIATRIA
+  - :id: MED/26
+    :name: NEUROLOGIA
+  - :id: MED/27
+    :name: "NEUROCHIRURGIA "
+  - :id: MED/28
+    :name: "MALATTIE ODONTOSTOMATOLOGICHE "
+  - :id: MED/29
+    :name: "CHIRURGIA MAXILLOFACCIALE "
+  - :id: MED/30
+    :name: MALATTIE APPARATO VISIVO
+  - :id: MED/31
+    :name: OTORINOLARINGOIATRIA
+  - :id: MED/32
+    :name: "AUDIOLOGIA "
+  - :id: MED/33
+    :name: "MALATTIE APPARATO LOCOMOTORE "
+  - :id: MED/34
+    :name: MEDICINA FISICA E RIABILITATIVA
+  - :id: MED/35
+    :name: "MALATTIE CUTANEE E VENEREE "
+  - :id: MED/36
+    :name: "DIAGNOSTICA PER IMMAGINI E RADIOTERAPIA "
+  - :id: MED/37
+    :name: "NEURORADIOLOGIA "
+  - :id: MED/38
+    :name: "PEDIATRIA GENERALE E SPECIALISTICA "
+  - :id: MED/39
+    :name: "NEUROPSICHIATRIA INFANTILE "
+  - :id: MED/40
+    :name: "GINECOLOGIA E OSTETRICIA "
+  - :id: MED/41
+    :name: "ANESTESIOLOGIA "
+  - :id: MED/42
+    :name: IGIENE GENERALE E APPLICATA
+  - :id: MED/43
+    :name: "MEDICINA LEGALE "
+  - :id: MED/44
+    :name: MEDICINA DEL LAVORO
+  - :id: MED/45
+    :name: SCIENZE INFERMIERISTICHE GENERALI, CLINICHE E PEDIATRICHE
+  - :id: MED/46
+    :name: "SCIENZE TECNICHE DI MEDICINA DI LABORATORIO "
+  - :id: MED/47
+    :name: "SCIENZE INFERMIERISTICHE OSTETRICO-GINECOLOGICHE "
+  - :id: MED/48
+    :name: SCIENZE INFERMIERISTICHE E TECNICHE NEURO-PSICHIATRICHE E RIABILITATIVE
+  - :id: MED/49
+    :name: "SCIENZE TECNICHE DIETETICHE APPLICATE "
+  - :id: MED/50
+    :name: "SCIENZE TECNICHE MEDICHE APPLICATE  "
+"07": 
+  :name: Scienze agrarie e veterinarie
+  :id: 
+  - AGR
+  - VET
+  :settori: 
+  - :id: AGR/01
+    :name: ECONOMIA ED ESTIMO RURALE
+  - :id: AGR/02
+    :name: AGRONOMIA E COLTIVAZIONI ERBACEE
+  - :id: AGR/03
+    :name: ARBORICOLTURA GENERALE E COLTIVAZIONI ARBOREE
+  - :id: AGR/04
+    :name: ORTICOLTURA E FLORICOLTURA
+  - :id: AGR/05
+    :name: ASSESTAMENTO FORESTALE E SELVICOLTURA
+  - :id: AGR/06
+    :name: TECNOLOGIA DEL LEGNO E UTILIZZAZIONI FORESTALI
+  - :id: AGR/07
+    :name: GENETICA AGRARIA
+  - :id: AGR/08
+    :name: IDRAULICA AGRARIA E SISTEMAZIONI IDRAULICO-FORESTALI
+  - :id: AGR/09
+    :name: MECCANICA AGRARIA
+  - :id: AGR/10
+    :name: COSTRUZIONI RURALI E TERRITORIO AGROFORESTALE
+  - :id: AGR/11
+    :name: ENTOMOLOGIA GENERALE E APPLICATA
+  - :id: AGR/12
+    :name: PATOLOGIA VEGETALE
+  - :id: AGR/13
+    :name: CHIMICA AGRARIA
+  - :id: AGR/14
+    :name: PEDOLOGIA
+  - :id: AGR/15
+    :name: SCIENZE E TECNOLOGIE ALIMENTARI
+  - :id: AGR/16
+    :name: MICROBIOLOGIA AGRARIA
+  - :id: AGR/17
+    :name: ZOOTECNICA GENERALE E MIGLIORAMENTO GENETICO
+  - :id: AGR/18
+    :name: NUTRIZIONE E ALIMENTAZIONE ANIMALE
+  - :id: AGR/19
+    :name: ZOOTECNICA SPECIALE
+  - :id: AGR/20
+    :name: ZOOCOLTURE
+  - :id: VET/01
+    :name: ANATOMIA DEGLI ANIMALI DOMESTICI
+  - :id: VET/02
+    :name: FISIOLOGIA VETERINARIA
+  - :id: VET/03
+    :name: PATOLOGIA GENERALE E ANATOMIA PATOLOGICA VETERINARIA
+  - :id: VET/04
+    :name: ISPEZIONE DEGLI ALIMENTI DI ORIGINE ANIMALE
+  - :id: VET/05
+    :name: MALATTIE INFETTIVE DEGLI ANIMALI DOMESTICI
+  - :id: VET/06
+    :name: PARASSITOLOGIA E MALATTIE PARASSITARIE DEGLI ANIMALI
+  - :id: VET/07
+    :name: FARMACOLOGIA E TOSSICOLOGIA VETERINARIA
+  - :id: VET/08
+    :name: CLINICA MEDICA VETERINARIA
+  - :id: VET/09
+    :name: CLINICA CHIRURGICA VETERINARIA
+  - :id: VET/10
+    :name: CLINICA OSTETRICA E GINECOLOGIA VETERINARIA
+"08": 
+  :id: ICAR
+  :name: Ingegneria civile e architettura
+  :settori: 
+  - :id: ICAR/01
+    :name: IDRAULICA
+  - :id: ICAR/02
+    :name: COSTRUZIONI IDRAULICHE E MARITTIME E IDROLOGIA
+  - :id: ICAR/03
+    :name: INGEGNERIA SANITARIA-AMBIENTALE
+  - :id: ICAR/04
+    :name: STRADE, FERROVIE ED AEROPORTI
+  - :id: ICAR/05
+    :name: TRASPORTI
+  - :id: ICAR/06
+    :name: TOPOGRAFIA E CARTOGRAFIA
+  - :id: ICAR/07
+    :name: GEOTECNICA
+  - :id: ICAR/08
+    :name: SCIENZA DELLE COSTRUZIONI
+  - :id: ICAR/09
+    :name: TECNICA DELLE COSTRUZIONI
+  - :id: ICAR/10
+    :name: ARCHITETTURA TECNICA
+  - :id: ICAR/11
+    :name: PRODUZIONE EDILIZIA
+  - :id: ICAR/12
+    :name: TECNOLOGIA DELL'ARCHITETTURA
+  - :id: ICAR/13
+    :name: DISEGNO INDUSTRIALE
+  - :id: ICAR/14
+    :name: COMPOSIZIONE ARCHITETTONICA E URBANA
+  - :id: ICAR/15
+    :name: ARCHITETTURA DEL PAESAGGIO
+  - :id: ICAR/16
+    :name: ARCHITETTURA DEGLI INTERNI E ALLESTIMENTO
+  - :id: ICAR/17
+    :name: DISEGNO
+  - :id: ICAR/18
+    :name: STORIA DELL'ARCHITETTURA
+  - :id: ICAR/19
+    :name: RESTAURO
+  - :id: ICAR/20
+    :name: TECNICA E PIANIFICAZIONE URBANISTICA
+  - :id: ICAR/21
+    :name: URBANISTICA
+  - :id: ICAR/22
+    :name: ESTIMO
+"09": 
+  :id: 
+  - ING-IND
+  - ING-INF
+  :name: Ingegneria industriale e dell'informazione
+  :settori: 
+  - :id: ING-IND/01
+    :name: ARCHITETTURA NAVALE
+  - :id: ING-IND/02
+    :name: COSTRUZIONI E IMPIANTI NAVALI E MARINI
+  - :id: ING-IND/03
+    :name: MECCANICA DEL VOLO
+  - :id: ING-IND/04
+    :name: COSTRUZIONI E STRUTTURE AEROSPAZIALI
+  - :id: ING-IND/05
+    :name: IMPIANTI E SISTEMI AEROSPAZIALI
+  - :id: ING-IND/06
+    :name: "FLUIDODINAMICA "
+  - :id: ING-IND/07
+    :name: "PROPULSIONE AEROSPAZIALE "
+  - :id: ING-IND/08
+    :name: "MACCHINE A FLUIDO "
+  - :id: ING-IND/09
+    :name: "SISTEMI PER L'ENERGIA E L'AMBIENTE "
+  - :id: ING-IND/10
+    :name: "FISICA TECNICA INDUSTRIALE "
+  - :id: ING-IND/11
+    :name: "FISICA TECNICA AMBIENTALE "
+  - :id: ING-IND/12
+    :name: "MISURE MECCANICHE E TERMICHE "
+  - :id: ING-IND/13
+    :name: MECCANICA APPLICATA ALLE MACCHINE
+  - :id: ING-IND/14
+    :name: "PROGETTAZIONE MECCANICA E COSTRUZIONE DI MACCHINE "
+  - :id: ING-IND/15
+    :name: DISEGNO E METODI DELL'INGEGNERIA INDUSTRIALE
+  - :id: ING-IND/16
+    :name: TECNOLOGIE E SISTEMI DI LAVORAZIONE
+  - :id: ING-IND/17
+    :name: IMPIANTI INDUSTRIALI MECCANICI
+  - :id: ING-IND/18
+    :name: "FISICA DEI REATTORI NUCLEARI "
+  - :id: ING-IND/19
+    :name: "IMPIANTI NUCLEARI "
+  - :id: ING-IND/20
+    :name: "MISURE E STRUMENTAZIONE NUCLEARI "
+  - :id: ING-IND/21
+    :name: METALLURGIA
+  - :id: ING-IND/22
+    :name: "SCIENZA E TECNOLOGIA DEI MATERIALI "
+  - :id: ING-IND/23
+    :name: CHIMICA FISICA APPLICATA
+  - :id: ING-IND/24
+    :name: PRINCIPI DI INGEGNERIA CHIMICA
+  - :id: ING-IND/25
+    :name: IMPIANTI CHIMICI
+  - :id: ING-IND/26
+    :name: TEORIA DELLO SVILUPPO DEI PROCESSI CHIMICI
+  - :id: ING-IND/27
+    :name: CHIMICA INDUSTRIALE E TECNOLOGICA
+  - :id: ING-IND/28
+    :name: INGEGNERIA E SICUREZZA DEGLI SCAVI
+  - :id: ING-IND/29
+    :name: "INGEGNERIA DELLE MATERIE PRIME "
+  - :id: ING-IND/30
+    :name: "IDROCARBURI E FLUIDI DEL SOTTOSUOLO "
+  - :id: ING-IND/31
+    :name: ELETTROTECNICA
+  - :id: ING-IND/32
+    :name: "CONVERTITORI, MACCHINE E AZIONAMENTI ELETTRICI "
+  - :id: ING-IND/33
+    :name: SISTEMI ELETTRICI PER L'ENERGIA
+  - :id: ING-IND/34
+    :name: BIOINGEGNERIA INDUSTRIALE
+  - :id: ING-IND/35
+    :name: INGEGNERIA ECONOMICO-GESTIONALE
+  - :id: ING-INF/01
+    :name: ELETTRONICA
+  - :id: ING-INF/02
+    :name: CAMPI ELETTROMAGNETICI
+  - :id: ING-INF/03
+    :name: TELECOMUNICAZIONI
+  - :id: ING-INF/04
+    :name: AUTOMATICA
+  - :id: ING-INF/05
+    :name: SISTEMI DI ELABORAZIONE DELLE INFORMAZIONI
+  - :id: ING-INF/06
+    :name: "BIOINGEGNERIA ELETTRONICA E INFORMATICA "
+  - :id: ING-INF/07
+    :name: MISURE ELETTRICHE E ELETTRONICHE
+"10": 
+  :name: "Scienze dell'antichit\xC3\xA0, filologico-letterarie e storico-artistiche"
+  :id: 
+  - L-ANT
+  - L-ART
+  - L-FIL-LET
+  - L-LIN
+  - L-OR
+  :settori: 
+  - :id: L-ANT/01
+    :name: PREISTORIA E PROTOSTORIA
+  - :id: L-ANT/02
+    :name: STORIA GRECA
+  - :id: L-ANT/03
+    :name: STORIA ROMANA
+  - :id: L-ANT/04
+    :name: NUMISMATICA
+  - :id: L-ANT/05
+    :name: PAPIROLOGIA
+  - :id: L-ANT/06
+    :name: "ETRUSCOLOGIA E ANTICHIT\xC3\x80 ITALICHE"
+  - :id: L-ANT/07
+    :name: ARCHEOLOGIA CLASSICA
+  - :id: L-ANT/08
+    :name: ARCHEOLOGIA CRISTIANA E MEDIEVALE
+  - :id: L-ANT/09
+    :name: TOPOGRAFIA ANTICA
+  - :id: L-ANT/10
+    :name: METODOLOGIE DELLA RICERCA ARCHEOLOGICA
+  - :id: L-ART/01
+    :name: STORIA DELL'ARTE MEDIEVALE
+  - :id: L-ART/02
+    :name: "STORIA DELL'ARTE MODERNA "
+  - :id: L-ART/03
+    :name: STORIA DELL'ARTE CONTEMPORANEA
+  - :id: L-ART/04
+    :name: MUSEOLOGIA E CRITICA ARTISTICA E DEL RESTAURO
+  - :id: L-ART/05
+    :name: DISCIPLINE DELLO SPETTACOLO
+  - :id: L-ART/06
+    :name: CINEMA, FOTOGRAFIA E TELEVISIONE
+  - :id: L-ART/07
+    :name: MUSICOLOGIA E STORIA DELLA MUSICA
+  - :id: L-ART/08
+    :name: ETNOMUSICOLOGIA
+  - :id: L-FIL-LET/01
+    :name: "CIVILT\xC3\x80 EGEE"
+  - :id: L-FIL-LET/02
+    :name: LINGUA E LETTERATURA GRECA
+  - :id: L-FIL-LET/03
+    :name: FILOLOGIA ITALICA, ILLIRICA, CELTICA
+  - :id: L-FIL-LET/04
+    :name: LINGUA E LETTERATURA LATINA
+  - :id: L-FIL-LET/05
+    :name: FILOLOGIA CLASSICA
+  - :id: L-FIL-LET/06
+    :name: LETTERATURA CRISTIANA ANTICA
+  - :id: L-FIL-LET/07
+    :name: "CIVILT\xC3\x80 BIZANTINA"
+  - :id: L-FIL-LET/08
+    :name: LETTERATURA LATINA MEDIEVALE E UMANISTICA
+  - :id: L-FIL-LET/09
+    :name: FILOLOGIA E LINGUISTICA ROMANZA
+  - :id: L-FIL-LET/10
+    :name: LETTERATURA ITALIANA
+  - :id: L-FIL-LET/11
+    :name: LETTERATURA ITALIANA CONTEMPORANEA
+  - :id: L-FIL-LET/12
+    :name: LINGUISTICA ITALIANA
+  - :id: L-FIL-LET/13
+    :name: FILOLOGIA DELLA LETTERATURA ITALIANA
+  - :id: L-FIL-LET/14
+    :name: CRITICA LETTERARIA E LETTERATURE COMPARATE
+  - :id: L-LIN/01
+    :name: GLOTTOLOGIA E LINGUISTICA
+  - :id: L-LIN/02
+    :name: DIDATTICA DELLE LINGUE MODERNE
+  - :id: L-LIN/03
+    :name: LETTERATURA FRANCESE
+  - :id: L-LIN/04
+    :name: LINGUA E TRADUZIONE - LINGUA FRANCESE
+  - :id: L-LIN/05
+    :name: LETTERATURA SPAGNOLA
+  - :id: L-LIN/06
+    :name: "LINGUA E LETTERATURE ISPANO-AMERICANE "
+  - :id: L-LIN/07
+    :name: LINGUA E TRADUZIONE - LINGUA SPAGNOLA
+  - :id: L-LIN/08
+    :name: LETTERATURA PORTOGHESE E BRASILIANA
+  - :id: L-LIN/09
+    :name: LINGUA E TRADUZIONE - LINGUE PORTOGHESE E BRASILIANA
+  - :id: L-LIN/10
+    :name: LETTERATURA INGLESE
+  - :id: L-LIN/11
+    :name: LINGUE E LETTERATURE ANGLO-AMERICANE
+  - :id: L-LIN/12
+    :name: LINGUA E TRADUZIONE - LINGUA INGLESE
+  - :id: L-LIN/13
+    :name: LETTERATURA TEDESCA
+  - :id: L-LIN/14
+    :name: LINGUA E TRADUZIONE - LINGUA TEDESCA
+  - :id: L-LIN/15
+    :name: LINGUE E LETTERATURE NORDICHE
+  - :id: L-LIN/16
+    :name: LINGUA E LETTERATURA NEDERLANDESE
+  - :id: L-LIN/17
+    :name: LINGUA E LETTERATURA ROMENA
+  - :id: L-LIN/18
+    :name: LINGUA E LETTERATURA ALBANESE
+  - :id: L-LIN/19
+    :name: FILOLOGIA UGRO-FINNICA
+  - :id: L-LIN/20
+    :name: LINGUA E LETTERATURA NEOGRECA
+  - :id: L-LIN/21
+    :name: SLAVISTICA
+  - :id: L-OR/01
+    :name: STORIA DEL VICINO ORIENTE ANTICO
+  - :id: L-OR/02
+    :name: "EGITTOLOGIA E CIVILT\xC3\x80 COPTA"
+  - :id: L-OR/03
+    :name: ASSIRIOLOGIA
+  - :id: L-OR/04
+    :name: ANATOLISTICA
+  - :id: L-OR/05
+    :name: ARCHEOLOGIA E STORIA DELL'ARTE DEL VICINO ORIENTE ANTICO
+  - :id: L-OR/06
+    :name: ARCHEOLOGIA FENICIO-PUNICA
+  - :id: L-OR/07
+    :name: SEMITISTICA - LINGUE E LETTERATURE DELL'ETIOPIA
+  - :id: L-OR/08
+    :name: EBRAICO
+  - :id: L-OR/09
+    :name: LINGUE E LETTERATURE DELL'AFRICA
+  - :id: L-OR/10
+    :name: STORIA DEI PAESI ISLAMICI
+  - :id: L-OR/11
+    :name: ARCHEOLOGIA E STORIA DELL'ARTE MUSULMANA
+  - :id: L-OR/12
+    :name: LINGUA E LETTERATURA ARABA
+  - :id: L-OR/13
+    :name: ARMENISTICA, CAUCASOLOGIA, MONGOLISTICA E TURCOLOGIA
+  - :id: L-OR/14
+    :name: FILOLOGIA, RELIGIONI E STORIA DELL'IRAN
+  - :id: L-OR/15
+    :name: LINGUA E LETTERATURA PERSIANA
+  - :id: L-OR/16
+    :name: ARCHEOLOGIA E STORIA DELL'ARTE DELL'INDIA E DELL'ASIA CENTRALE
+  - :id: L-OR/17
+    :name: FILOSOFIE, RELIGIONI E STORIA DELL'INDIA E DELL'ASIA CENTRALE
+  - :id: L-OR/18
+    :name: INDOLOGIA E TIBETOLOGIA
+  - :id: L-OR/19
+    :name: LINGUE E LETTERATURE MODERNE DEL SUBCONTINENTE INDIANO
+  - :id: L-OR/20
+    :name: ARCHEOLOGIA, STORIA DELL'ARTE E FILOSOFIE DELL'ASIA ORIENTALE
+  - :id: L-OR/21
+    :name: LINGUE E LETTERATURE DELLA CINA E DELL'ASIA SUD-ORIENTALE
+  - :id: L-OR/22
+    :name: LINGUE E LETTERATURE DEL GIAPPONE E DELLA COREA
+  - :id: L-OR/23
+    :name: STORIA DELL'ASIA ORIENTALE E SUD-ORIENTALE
+"11": 
+  :name: Scienze storiche, filosofiche, pedagogiche e psicologiche
+  :id: 
+  - M-STO
+  - M-DEA
+  - M-GGR
+  - M-FIL
+  - M-PED
+  - M-PSI
+  - M-EDF
+  :settori: 
+  - :id: M-STO/01
+    :name: STORIA MEDIEVALE
+  - :id: M-STO/02
+    :name: "STORIA MODERNA "
+  - :id: M-STO/03
+    :name: "STORIA DELL'EUROPA ORIENTALE "
+  - :id: M-STO/04
+    :name: "STORIA CONTEMPORANEA "
+  - :id: M-STO/05
+    :name: "STORIA DELLA SCIENZA E DELLE TECNICHE "
+  - :id: M-STO/06
+    :name: "STORIA DELLE RELIGIONI "
+  - :id: M-STO/07
+    :name: "STORIA DEL CRISTIANESIMO E DELLE CHIESE "
+  - :id: M-STO/08
+    :name: "ARCHIVISTICA, BIBLIOGRAFIA E BIBLIOTECONOMIA "
+  - :id: M-STO/09
+    :name: "PALEOGRAFIA "
+  - :id: M-DEA/01
+    :name: "DISCIPLINE DEMOETNOANTROPOLOGICHE "
+  - :id: M-GGR/01
+    :name: "GEOGRAFIA "
+  - :id: M-GGR/02
+    :name: "GEOGRAFIA ECONOMICO-POLITICA "
+  - :id: M-FIL/01
+    :name: "FILOSOFIA TEORETICA "
+  - :id: M-FIL/02
+    :name: "LOGICA E FILOSOFIA DELLA SCIENZA "
+  - :id: M-FIL/03
+    :name: "FILOSOFIA MORALE "
+  - :id: M-FIL/04
+    :name: ESTETICA
+  - :id: M-FIL/05
+    :name: "FILOSOFIA E TEORIA DEI LINGUAGGI "
+  - :id: M-FIL/06
+    :name: "STORIA DELLA FILOSOFIA "
+  - :id: M-FIL/07
+    :name: "STORIA DELLA FILOSOFIA ANTICA "
+  - :id: M-FIL/08
+    :name: "STORIA DELLA FILOSOFIA MEDIEVALE "
+  - :id: M-PED/01
+    :name: "PEDAGOGIA GENERALE E SOCIALE "
+  - :id: M-PED/02
+    :name: "STORIA DELLA PEDAGOGIA "
+  - :id: M-PED/03
+    :name: "DIDATTICA E PEDAGOGIA SPECIALE "
+  - :id: M-PED/04
+    :name: "PEDAGOGIA SPERIMENTALE "
+  - :id: M-PSI/01
+    :name: "PSICOLOGIA GENERALE "
+  - :id: M-PSI/02
+    :name: "PSICOBIOLOGIA E PSICOLOGIA FISIOLOGICA "
+  - :id: M-PSI/03
+    :name: "PSICOMETRIA "
+  - :id: M-PSI/04
+    :name: "PSICOLOGIA DELLO SVILUPPO E PSICOLOGIA DELL'EDUCAZIONE "
+  - :id: M-PSI/05
+    :name: "PSICOLOGIA SOCIALE "
+  - :id: M-PSI/06
+    :name: "PSICOLOGIA DEL LAVORO E DELLE ORGANIZZAZIONI "
+  - :id: M-PSI/07
+    :name: PSICOLOGIA DINAMICA
+  - :id: M-PSI/08
+    :name: "PSICOLOGIA CLINICA "
+  - :id: M-EDF/01
+    :name: "METODI E DIDATTICHE DELLE ATTIVIT\xC3\x80 MOTORIE "
+  - :id: M-EDF/02
+    :name: "METODI E DIDATTICHE DELLE ATTIVIT\xC3\x80 SPORTIVE"
+"12": 
+  :id: IUS
+  :name: Scienze giuridiche
+  :settori: 
+  - :id: DIRITTO PRIVATO
+  - :id: DIRITTO PRIVATO COMPARATO
+  - :id: DIRITTO AGRARIO
+  - :id: DIRITTO COMMERCIALE
+  - :id: DIRITTO DELL'ECONOMIA
+  - :id: DIRITTO DELLA NAVIGAZIONE
+  - :id: DIRITTO DEL LAVORO
+  - :id: DIRITTO COSTITUZIONALE
+  - :id: ISTITUZIONI DI DIRITTO PUBBLICO
+  - :id: DIRITTO AMMINISTRATIVO
+  - :id: DIRITTO CANONICO E DIRITTO ECCLESIASTICO
+  - :id: DIRITTO TRIBUTARIO
+  - :id: DIRITTO INTERNAZIONALE
+  - :id: DIRITTO DELL'UNIONE EUROPEA
+  - :id: DIRITTO PROCESSUALE CIVILE
+  - :id: DIRITTO PROCESSUALE PENALE
+  - :id: DIRITTO PENALE
+  - :id: "DIRITTO ROMANO E DIRITTI DELL'ANTICHIT\xC3\x80"
+  - :id: STORIA DEL DIRITTO MEDIEVALE E MODERNO
+  - :id: FILOSOFIA DEL DIRITTO
+  - :id: DIRITTO PUBBLICO COMPARATO
+"13": 
+  :id: 
+  - SECS-P
+  - SECS-S
+  :name: Scienze economiche e statistiche
+  :settori: 
+  - :id: SECS-P/01
+    :name: "ECONOMIA POLITICA "
+  - :id: SECS P/02
+    :name: "POLITICA ECONOMICA "
+  - :id: SECS-P/03
+    :name: "SCIENZA DELLE FINANZE "
+  - :id: SECS-P/04
+    :name: "STORIA DEL PENSIERO ECONOMICO "
+  - :id: SECS-P/05
+    :name: "ECONOMETRIA "
+  - :id: SECS-P/06
+    :name: "ECONOMIA APPLICATA "
+  - :id: SECS-P/07
+    :name: "ECONOMIA AZIENDALE "
+  - :id: SECS-P/08
+    :name: "ECONOMIA E GESTIONE DELLE IMPRESE "
+  - :id: SECS-P/09
+    :name: "FINANZA AZIENDALE "
+  - :id: SECS-P/10
+    :name: "ORGANIZZAZIONE AZIENDALE "
+  - :id: SECS-P/11
+    :name: "ECONOMIA DEGLI INTERMEDIARI FINANZIARI "
+  - :id: SECS-P/12
+    :name: "STORIA ECONOMICA "
+  - :id: SECS-P/13
+    :name: SCIENZE MERCEOLOGICHE
+  - :id: SECS-S/01
+    :name: STATISTICA
+  - :id: SECS-S/02
+    :name: STATISTICA PER LA RICERCA SPERIMENTALE E TECNOLOGICA
+  - :id: SECS-S/03
+    :name: STATISTICA ECONOMICA
+  - :id: SECS-S/04
+    :name: DEMOGRAFIA
+  - :id: SECS-S/05
+    :name: STATISTICA SOCIALE
+  - :id: SECS-S/06
+    :name: METODI MATEMATICI DELL'ECONOMIA E DELLE SCIENZE ATTUARIALI E FINANZIARIE
+"14": 
+  :name: Scienze politiche e sociali
+  :id: SPS
+  :settori: 
+  - :id: SPS/01
+    :name: FILOSOFIA POLITICA
+  - :id: SPS/02
+    :name: STORIA DELLE DOTTRINE POLITICHE
+  - :id: SPS/03
+    :name: STORIA DELLE ISTITUZIONI POLITICHE
+  - :id: SPS/04
+    :name: SCIENZA POLITICA
+  - :id: SPS/05
+    :name: STORIA E ISTITUZIONI DELLE AMERICHE
+  - :id: SPS/06
+    :name: STORIA DELLE RELAZIONI INTERNAZIONALI
+  - :id: SPS/07
+    :name: SOCIOLOGIA GENERALE
+  - :id: SPS/08
+    :name: "SOCIOLOGIA DEI PROCESSI CULTURALI E COMUNICATIVI "
+  - :id: SPS/09
+    :name: SOCIOLOGIA DEI PROCESSI ECONOMICI E DEL LAVORO
+  - :id: SPS/10
+    :name: SOCIOLOGIA DELL'AMBIENTE E DEL TERRITORIO
+  - :id: SPS/11
+    :name: SOCIOLOGIA DEI FENOMENI POLITICI
+  - :id: SPS/12
+    :name: SOCIOLOGIA GIURIDICA, DELLA DEVIANZA E MUTAMENTO SOCIALE
+  - :id: SPS/13
+    :name: STORIA E ISTITUZIONI DELL'AFRICA
+  - :id: SPS/14
+    :name: STORIA E ISTITUZIONI DELL'ASIA

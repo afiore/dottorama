@@ -34,12 +34,12 @@ class Miurviz < Sinatra::Base
     Miur::Statistiche::distribuzioni_per_ciclo(attribute, ciclo).to_json
   end
 
-  get "/co_occurencies/:attribute/:value/:ciclo" do
+  get "/co_occurrencies/:attribute/:value/:ciclo" do
     attribute = params[:attribute]
     value = params[:value]
-    ciclo = params[:ciclo] || 19
+    cycle = params[:ciclo] || 19
 
     content_type "application/json"
-    Miur::Statistiche::co_occurencies(attribute, value, cicle)
+    Miur::Statistiche::co_occurrencies(attribute, value, cycle).to_json
   end
 end

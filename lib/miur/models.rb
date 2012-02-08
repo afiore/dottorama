@@ -36,8 +36,6 @@ class Dottorato < Ohm::Model
   attribute :aree
   index :area
 
-
-
   #
   # frammentano la stringa contenente settori/aree rilevanti in una array
   # (consente di cercare dottorati per uno o piu' settori/aree )

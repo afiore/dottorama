@@ -1,91 +1,111 @@
+tick = null
 
-stash = (d) ->
-  d.x0 = d.x
-  d.dx0 = d.dx
-
-init = () ->
-
-  w = 960
-  h = 700
-  r = Math.min(w, h) / 2
-  colourHue = null
-  colourSaturation = null
-
-  getArea = (d) ->
+getArea = (d) ->
     d = d.parent while d.parent and d.parent.name != 'Root'
     d
 
-  
-  areaFilter = (d, node) ->
-    node.name == d.name or node.parent?.name == d.name
-
-  assignColourToArea = (d, colour, filter=areaFilter) ->
-    vis.selectAll('path').filter((node) ->
-      filter(d, node)
-    ).style("fill", colour.toString())
-
-  assignColour = (d) -> 
-    d = getArea(d)
-    s = colourSaturation(d.total)
-    "hsl(0, 0%, #{s}%)"
-
-  onMouseover = (d) ->
-    area = getArea(d)
-    d = area if d.depth == 1
-    hue = colourHue(area.name)
-    colour = d3.hsl(hue, 1, 0.5)
-    assignColourToArea(d, colour)
+stash = (d) ->
+  d.fill0 = d3.select(this).style("fill")
 
 
-  onMouseout = (d) ->
-    d = getArea(d)
-    colour = assignColour(d)
-    assignColourToArea(d, colour)
+onMouseout = (element, d, i) ->
+  d = getArea(d)
+  @vis.selectAll("path").style("fill", (d) -> d.fill0)
+  clearTimeout(tick)
+
+onMouseover = (element, d, i) ->
+  area = getArea(d)
+  d = area if d.depth == 1
+
+  # Highlight the current research sector 
+  elementColour = d3.hsl @colourScales.hue(area.name), 1, 0.5
+  d3.select(element).style("fill", elementColour.toString())
+
+  tick = setTimeout =>
+    # fetch a list of related research sectors
+    collection = if d.parent.depth == 0 then "area" else "settore"
+
+    app.api.fetchOccurencies(collection, d.name, 19)
+      .then (data) => 
+
+        data = data[0.. data.length / 3]
+        nodes = data.map (item) -> item[0]
+
+        @vis.selectAll 'path'.filter (node) ->
+          nodes.indexOf(node.name) > -1
+
+        .style "fill", (d) =>
+          parent = getArea(d)
+          colour = d3.hsl(@colourScales.hue(parent.name), 1, 0.5)
+          colour.toString()
 
 
-
-  vis = d3.select("#chart").append("svg")
-          .attr("width", w)
-          .attr("height", h)
-          .append("g")
-          .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")")
-
-  partition = d3.layout.partition()
-                .sort(null)
-                .size([2 * Math.PI, r * r])
-                .value((d) -> 1)
-
-  arc = d3.svg.arc()
-          .startAngle((d) -> d.x)
-          .endAngle((d) -> d.x + d.dx)
-          .innerRadius((d) -> Math.sqrt(d.y))
-          .outerRadius((d) -> Math.sqrt(d.y + d.dy))
-
-  
-  d3.json "/distributions/19", (data) ->
-    # define the colour hue scale for top 
-    colourHue = d3.scale.ordinal().domain(data.map((d) -> d.name)).rangePoints([0, 259])
-    colourSaturation = d3.scale.ordinal().domain(data.map((d) -> d.total)).rangeRoundBands([0, 100])
+  , 1000
 
 
-    path = vis.data([name: "Root", children: data ]).selectAll("path")
-      .data(partition.nodes)
+bindEvents = () ->
+  runCurried = (func, element, d, i) =>
+    func.call(this, element, d, i)
+
+  @vis.selectAll("path")
+    .on("mouseover", (d, i) -> runCurried onMouseover, this, d, i)
+    .on("mouseout",  (d, i) -> runCurried onMouseout, this,  d, i)
+
+
+class @app.SunburstGraph
+  constructor: (data, @selector = "#chart", @options = {}) ->
+    _.defaults(@options, width: 960, height:700)
+
+    this.setData(data)
+    r = Math.min(@options.width, @options.height) / 2
+
+    @vis = d3.select(@selector).append("svg")
+      .attr("width",  @options.width)
+      .attr("height", @options.height)
+      .append("g")
+      .attr("transform", "translate(" + @options.width / 2 + "," + @options.height / 2 + ")")
+
+    @partition = d3.layout.partition()
+      .sort(null)
+      .size([2 * Math.PI, r * r])
+      .value((d) -> 1)
+
+    @arc = d3.svg.arc()
+      .startAngle((d) -> d.x)
+      .endAngle((d) -> d.x + d.dx)
+      .innerRadius((d) -> Math.sqrt(d.y))
+      .outerRadius((d) -> Math.sqrt(d.y + d.dy))
+
+  setData: (@data) ->
+    sectorNames  = _.map(@data.children, (item) -> item.name)
+    sectorValues = _.map(@data.children, (item) -> item.total)
+
+    @colourScales = 
+      hue: d3.scale.ordinal().domain(sectorNames).rangePoints([0, 359])
+      level: d3.scale.ordinal().domain(sectorValues).rangeRoundBands([0, 100])
+    this
+
+  render: ->
+    @vis.data([@data]).selectAll("path")
+      .data(@partition.nodes)
       .enter()
       .append("g")
       .append("title").text((d) -> "#{d.name} #{ '('+ d.total + ')' if d.total }" )
 
-      vis.selectAll("g").append("path")
-       .attr("display", (d) -> 
-         if d.depth and d.depth < 3 then null else "none" 
-       ) #hide inner ring
-       .attr("d", arc)
-       .attr("fill-rule", "evenodd")
-       .style("stroke", "#fff")
-       .style("fill", assignColour)
-       .on("mouseover", onMouseover)
-       .on("mouseout", onMouseout)
+    @vis.selectAll("g").append("path")
+      .attr("display", (d) -> 
+        if d.depth and d.depth < 3 then null else "none" 
+      )
+      .attr("d", @arc)
+      .attr("fill-rule", "evenodd")
+      .style("stroke", "#fff")
+      .style("fill", (d) => 
+        d = getArea(d)
+        level = @colourScales.level(d.total)
+        "hsl(0, 0%, #{level}%)"
 
+      ).each(stash)
 
-
-document.addEventListener "DOMContentLoaded", init
+    bindEvents.call(this)
+    this
 
