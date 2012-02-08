@@ -16,9 +16,9 @@ module Miur
       end
 
       def d3format(data)
-        root = {:name => "root", :children => data.keys.map { |settore| {:name => settore, :children => [] } } }
+        root = {:name => "root", :children => data.map { |settore, sottosettori| {:name => settore, :children => [], :total =>  sottosettori.map { |name, count| count }.reduce(&:+) } } }
         root[:children].each do |node|
-          node[:children] = data[node[:name]].map { |(name, count)| {:name => name, :children => Range.new(1, count/20).to_a.map {{}} }}
+          node[:children] = data[node[:name]].map { |(name, count)| {:name => name, :children => Range.new(1, count/20).to_a.map {{}}, :total => count }}
         end
       end
 

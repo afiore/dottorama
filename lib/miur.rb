@@ -6,6 +6,7 @@
 #
 #
 
+
 $: << File.realpath(__FILE__.gsub(/\.rb$/, ''))
 
 require "ohm"
@@ -17,4 +18,6 @@ require "scraper"
 require "statistiche"
 require "pry"
 
-module Miur; end
+
+module Miur
+end
