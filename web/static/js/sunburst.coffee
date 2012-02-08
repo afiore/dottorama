@@ -31,14 +31,13 @@ onMouseover = (element, d, i) ->
         data = data[0.. data.length / 3]
         nodes = data.map (item) -> item[0]
 
-        @vis.selectAll 'path'.filter (node) ->
+        @vis.selectAll('path').filter((node) ->
           nodes.indexOf(node.name) > -1
-
-        .style "fill", (d) =>
+        ).style("fill", (d) =>
           parent = getArea(d)
           colour = d3.hsl(@colourScales.hue(parent.name), 1, 0.5)
           colour.toString()
-
+        )
 
   , 1000
 
