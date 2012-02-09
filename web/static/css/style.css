@@ -1,4 +1,14 @@
 #chart {
+  position: absolute;
   border: 1px solid #000;
   width: 710px;
+}
+
+div.tooltip {
+
+  height: 25px;
+  position: absolute;
+  color: white;
+  font-width: bold;
+  z-index: 10;
 }

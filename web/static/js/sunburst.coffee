@@ -1,4 +1,4 @@
-tick = null
+
 
 getArea = (d) ->
     d = d.parent while d.parent and d.parent.name != 'Root'
@@ -8,49 +8,89 @@ stash = (d) ->
   d.fill0 = d3.select(this).style("fill")
 
 
-onMouseout = (element, d, i) ->
-  d = getArea(d)
-  @vis.selectAll("path").style("fill", (d) -> d.fill0)
-  clearTimeout(tick)
 
-onMouseover = (element, d, i) ->
-  area = getArea(d)
-  d = area if d.depth == 1
+# 
+# id for the delayed call to app.api.fetchOccurencies, used to display related sectors 
+# when the user mouse hovers on a sector for more than 1 second.
+#
+#
+tick = null
 
-  # Highlight the current research sector 
-  elementColour = d3.hsl @colourScales.hue(area.name), 1, 0.5
+eventHandlers = 
+  mouseover:
 
-  @vis.selectAll("path")
-    .filter( (dd)-> dd == d or dd.parent == d )
-    .style("fill", elementColour.toString())
+    displayTooltip: (d, element) ->
+      text = d.human_name or d.name
+      area = getArea(d)
+      d = area if d.depth == 1
+      colour = d3.hsl @colourScales.hue(area.name), 1, 0.5
 
-  tick = setTimeout =>
-    # fetch a list of related research sectors
-    collection = if d.parent.depth == 0 then "area" else "settore"
+      if d and text
+        @tooltip.text(text)
+          .style("visibility", "visible")
+          .style("background", colour.toString())
 
-    app.api.fetchOccurencies(collection, d.name, 19)
-      .then (data) => 
+    # 
+    # Highlights the current research sector
+    #
+    # If the user's mouse hovers a research area, hightlights also the area's child sectors.
+    #
+    # d - The d3 datum associated to the current event target element.
+    #
+    # Returns nothing.
+    #
+    #
 
-        data = data[0.. data.length / 3]
-        nodes = data.map (item) -> item[0]
+    colouriseSector: (d) ->
+      area = getArea(d)
+      d = area if d.depth == 1
+      elementColour = d3.hsl @colourScales.hue(area.name), 1, 0.5
 
-        @vis.selectAll('path').filter((node) ->
-          nodes.indexOf(node.name) > -1
-        ).style("fill", (d) =>
-          parent = getArea(d)
-          colour = d3.hsl(@colourScales.hue(parent.name), 1, 0.5)
-          colour.toString()
-        )
+      @vis.selectAll("path")
+        .filter( (dd)-> dd == d or dd.parent == d )
+        .style("fill", elementColour.toString())
 
-  , 1000
+    #
+    # Fetches a list of related research sectors
+    #
+    # d - The d3 datum associated to the current event target element.
+    #
+    # Returns nothing.
+    #
+    fetchRelatedSectors: (d) ->
+      tick = setTimeout =>
+        collection = if d.parent.depth == 0 then "area" else "settore"
 
-bindEvents = () ->
-  runCurried = (func, element, d, i) =>
-    func.call(this, element, d, i)
+        app.api.fetchOccurencies(collection, d.name, 19)
+          .then (data) => 
 
-  @vis.selectAll("path")
-    .on("mouseover", (d, i) -> runCurried onMouseover, this, d, i)
-    .on("mouseout",  (d, i) -> runCurried onMouseout, this,  d, i)
+            data = data[0.. data.length / 3]
+            nodes = data.map (item) -> item[0]
+
+            @vis.selectAll('path').filter((node) ->
+              nodes.indexOf(node.name) > -1
+            ).style("fill", (d) =>
+              parent = getArea(d)
+              colour = d3.hsl(@colourScales.hue(parent.name), 1, 0.5)
+              colour.toString()
+            )
+      , 1000
+
+  mouseout:
+    hideTooltip: (d) ->
+       @tooltip.style("visibility", "hidden")
+
+    downlightSector: (d) ->
+      d = getArea(d)
+      @vis.selectAll("path").style("fill", (d) -> d.fill0)
+    clearTimeout: ->
+      clearTimeout(tick)
+
+  mousemove:
+    moveTooltip: ->
+      @tooltip
+        .style("top",  (d3.event.pageY - 10) + "px")
+        .style("left", (d3.event.pageX + 10) + "px")
 
 areaName = (d) ->
   aree = app.AREE
@@ -61,6 +101,36 @@ areaName = (d) ->
     else d
 
   area and area.name or "n/a"
+
+
+
+bindEvents = () ->
+
+  #
+  # Runs graph event handlers
+  #
+  # Each handler's `this` value gets bound to the SunburstGraph instance, hence working as a private method.
+  #
+  # Parameters:
+  #
+  # element       - The DOM target element on which the event is fired.
+  # d             - The d3 datum bound to the element.
+  # i             - The d3 datum index within the bound dataset.
+  # eventHandlers - An array of handler functions, will be executed in the order in which they are passed in.
+  #
+  # Returns nothing.
+  #
+  # 
+  #
+  runCurried = (element, d, i, eventHandlers) =>
+    _.each(eventHandlers, (handler) => 
+      handler.call(this, d, element, i)
+    )
+
+  @vis.selectAll("path")
+    .on("mouseover", (d, i) -> runCurried this, d, i, _.values(eventHandlers.mouseover))
+    .on("mouseout",  (d, i) -> runCurried this,  d, i, _.values(eventHandlers.mouseout))
+    .on("mousemove", (d, i) => eventHandlers.mousemove.moveTooltip.call(this) )
 
 
 class @app.SunburstGraph
@@ -87,6 +157,11 @@ class @app.SunburstGraph
       .innerRadius((d) -> Math.sqrt(d.y))
       .outerRadius((d) -> Math.sqrt(d.y + d.dy))
 
+    @tooltip = d3.select("body")
+      .append("div")
+      .attr("class", "tooltip")
+
+
   setData: (@data) ->
     sectorNames  = _.map(@data.children, (item) -> item.name)
     sectorValues = _.map(@data.children, (item) -> item.total)
@@ -102,9 +177,6 @@ class @app.SunburstGraph
       .data(@partition.nodes)
       .enter()
       .append("g")
-      .append("title").text((d) -> 
-        "#{d.human_name or d.name}"
-      )
 
     @vis.selectAll("g").append("path")
       .attr("display", (d) -> 
@@ -119,6 +191,7 @@ class @app.SunburstGraph
         "hsl(0, 0%, #{level}%)"
 
       ).each(stash)
+
 
     bindEvents.call(this)
     this
