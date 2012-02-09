@@ -105,32 +105,10 @@ areaName = (d) ->
 
 
 bindEvents = () ->
-
-  #
-  # Runs graph event handlers
-  #
-  # Each handler's `this` value gets bound to the SunburstGraph instance, hence working as a private method.
-  #
-  # Parameters:
-  #
-  # element       - The DOM target element on which the event is fired.
-  # d             - The d3 datum bound to the element.
-  # i             - The d3 datum index within the bound dataset.
-  # eventHandlers - An array of handler functions, will be executed in the order in which they are passed in.
-  #
-  # Returns nothing.
-  #
-  # 
-  #
-  runCurried = (element, d, i, eventHandlers) =>
-    _.each(eventHandlers, (handler) => 
-      handler.call(this, d, element, i)
-    )
-
   @vis.selectAll("path")
-    .on("mouseover", (d, i) -> runCurried this, d, i, _.values(eventHandlers.mouseover))
-    .on("mouseout",  (d, i) -> runCurried this,  d, i, _.values(eventHandlers.mouseout))
-    .on("mousemove", (d, i) => eventHandlers.mousemove.moveTooltip.call(this) )
+    .on("mouseover", (d, i) => app.utils.applyAll  _.values(eventHandlers.mouseover), [d, i], this)
+    .on("mouseout",  (d, i) => app.utils.applyAll  _.values(eventHandlers.mouseout), [d, i], this)
+    .on("mousemove", (d, i) => eventHandlers.mousemove.moveTooltip.call this)
 
 
 class @app.SunburstGraph
@@ -138,6 +116,7 @@ class @app.SunburstGraph
     _.defaults(@options, width: 700, height:700)
 
     this.setData(data)
+
     r = Math.min(@options.width, @options.height) / 2
 
     @vis = d3.select(@selector).append("svg")
@@ -194,5 +173,10 @@ class @app.SunburstGraph
 
 
     bindEvents.call(this)
+    this
+
+  reset: ( data = null )-> 
+    @vis.selectAll("g").data([]).exit().remove()
+    this.setData data
     this
 
