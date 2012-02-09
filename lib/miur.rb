@@ -11,6 +11,7 @@ require "yaml"
 require "ohm"
 require "ohm/contrib"
 require "nokogiri"
+require "escape_utils"
 require "open-uri"
 require "pry"
 

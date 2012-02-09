@@ -18,6 +18,12 @@ class Miurviz < Sinatra::Base
     erb :index
   end
 
+
+  get "/miur_aree.js" do
+    content_type "text/javascript"
+    erb :aree, :layout => false, :locals => {:aree => Miur::AREE }
+  end
+
   get "/distributions/:ciclo" do
     ciclo = params[:ciclo] || 19
 

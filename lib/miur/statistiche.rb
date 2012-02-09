@@ -29,10 +29,16 @@ module Miur
       end
 
       def d3format(data)
-        root = {:name => "root", :children => data.map { |settore, sottosettori| {:name => settore, :children => [], :total =>  sottosettori.map { |name, count| count }.reduce(&:+) } } }
+        root = {:name => "root", :children => data.map { |settore, sottosettori| {:name => settore, :children => [], :human_name => AREE[settore] && AREE[settore][:name], :total =>  sottosettori.map { |name, count| count }.reduce(&:+) } } }
+
         root[:children].each do |node|
+          area = node[:name]
+
           # we create a graph node for each 20 PhD grants (otherwise the whole thing will take ages to load)
-          node[:children] = data[node[:name]].map { |(name, count)| {:name => name, :children => Range.new(1, count/10).to_a.map {{}}, :total => count }}
+          node[:children] = data[node[:name]].map do |(name, count)|
+            settore_hash = Miur::AREE[area][:settori].detect { |s| s[:id] == name } unless area.nil?
+            {:name => name, :children => Range.new(1, count/10).to_a.map {{}}, :total => count, :human_name => settore_hash && settore_hash[:name] }
+          end
         end
       end
 

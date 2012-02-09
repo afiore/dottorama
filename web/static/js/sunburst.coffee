@@ -19,7 +19,10 @@ onMouseover = (element, d, i) ->
 
   # Highlight the current research sector 
   elementColour = d3.hsl @colourScales.hue(area.name), 1, 0.5
-  d3.select(element).style("fill", elementColour.toString())
+
+  @vis.selectAll("path")
+    .filter( (dd)-> dd == d or dd.parent == d )
+    .style("fill", elementColour.toString())
 
   tick = setTimeout =>
     # fetch a list of related research sectors
@@ -41,7 +44,6 @@ onMouseover = (element, d, i) ->
 
   , 1000
 
-
 bindEvents = () ->
   runCurried = (func, element, d, i) =>
     func.call(this, element, d, i)
@@ -50,10 +52,20 @@ bindEvents = () ->
     .on("mouseover", (d, i) -> runCurried onMouseover, this, d, i)
     .on("mouseout",  (d, i) -> runCurried onMouseout, this,  d, i)
 
+areaName = (d) ->
+  aree = app.AREE
+  area = switch d?.depth
+    when 3 then null
+    when 2 then  _.detect(aree[d.parent.name].settori, (settore) -> settore.id == d.name )
+    when 1 then aree[d.name]
+    else d
+
+  area and area.name or "n/a"
+
 
 class @app.SunburstGraph
   constructor: (data, @selector = "#chart", @options = {}) ->
-    _.defaults(@options, width: 960, height:700)
+    _.defaults(@options, width: 700, height:700)
 
     this.setData(data)
     r = Math.min(@options.width, @options.height) / 2
@@ -85,11 +97,14 @@ class @app.SunburstGraph
     this
 
   render: ->
+
     @vis.data([@data]).selectAll("path")
       .data(@partition.nodes)
       .enter()
       .append("g")
-      .append("title").text((d) -> "#{d.name} #{ '('+ d.total + ')' if d.total }" )
+      .append("title").text((d) -> 
+        "#{d.human_name or d.name}"
+      )
 
     @vis.selectAll("g").append("path")
       .attr("display", (d) -> 
