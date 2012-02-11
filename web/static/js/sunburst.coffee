@@ -6,7 +6,16 @@ getArea = (d) ->
 
 stash = (d) ->
   d.fill0 = d3.select(this).style("fill")
+  d.x0 = d.x
+  d.dx0 = d.dx
 
+arcTween = (a) ->
+  i = d3.interpolate( x: a.x0, dx: a.dx0, a)
+  (t) ->
+    b = i(t)
+    a.x0 = b.x
+    a.dx0 = b.dx
+    arc(b)
 
 
 # 
@@ -149,6 +158,7 @@ class @app.SunburstGraph
       hue: d3.scale.ordinal().domain(sectorNames).rangePoints([0, 359])
       level: d3.scale.ordinal().domain(sectorValues).rangeRoundBands([0, 100])
     this
+
 
   render: ->
 
