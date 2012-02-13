@@ -23,8 +23,3 @@ module Miur
   end
 end
 
-# query: list tutti i settori che co-occorrono con un dato settore
-#
-#  Dottorato.find(:settore => ['BIO/09']).map(&:settore).flatten.reject { |t| t ==  "BIO/09" }.reduce({}) { |memo, t| memo.merge(t => memo.fetch(t, 0) + 1 ) }.sort { |a, b| b[1] <=> a[1] }
-#
-

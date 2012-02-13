@@ -1,4 +1,3 @@
-require 'pp'
 module Miur
   module Statistiche
     class << self
