@@ -18,6 +18,9 @@ arcTween = (a) ->
     arc(b)
 
 
+sectorValue = (item) ->
+   _.chain(item.children).map((sector) -> sector.frequencies[app.ciclo]).reduce((a, b) -> a + b ).value()
+
 # 
 # id for the delayed call to app.api.fetchOccurencies, used to display related sectors 
 # when the user mouse hovers on a sector for more than 1 second.
@@ -68,12 +71,10 @@ eventHandlers =
     #
     fetchRelatedSectors: (d) ->
       tick = setTimeout =>
-        collection = if d.parent.depth == 0 then "area" else "settore"
-
-        app.api.fetchOccurencies(collection, d.name, 19)
+        app.api.fetchOccurencies(d.name, 19)
           .then (data) => 
+            data = _.map(data, (count, key) -> [key, count])[0.. data.length / 3]
 
-            data = data[0.. data.length / 3]
             nodes = data.map (item) -> item[0]
 
             @vis.selectAll('path').filter((node) ->
@@ -112,7 +113,6 @@ areaName = (d) ->
   area and area.name or "n/a"
 
 
-
 bindEvents = () ->
   @vis.selectAll("path")
     .on("mouseover", (d, i) => app.utils.applyAll  _.values(eventHandlers.mouseover), [d, i], this)
@@ -138,6 +138,15 @@ class @app.SunburstGraph
       .sort(null)
       .size([2 * Math.PI, r * r])
       .value((d) -> 1)
+      .children((d) -> 
+        if d and d.children
+          d.children
+        else
+          return unless d && d.frequencies
+          value = d.frequencies[app.ciclo]
+          _.map(_.range(1, value/20), -> {})
+
+      )
 
     @arc = d3.svg.arc()
       .startAngle((d) -> d.x)
@@ -151,8 +160,9 @@ class @app.SunburstGraph
 
 
   setData: (@data) ->
-    sectorNames  = _.map(@data.children, (item) -> item.name)
-    sectorValues = _.map(@data.children, (item) -> item.total)
+    sectorNames  = _.map @data.children, (item) -> item.name
+    sectorValues = _.map @data.children, sectorValue
+
 
     @colourScales = 
       hue: d3.scale.ordinal().domain(sectorNames).rangePoints([0, 359])
@@ -175,12 +185,14 @@ class @app.SunburstGraph
       .attr("fill-rule", "evenodd")
       .style("stroke", "#fff")
       .style("fill", (d) => 
+        return unless d.depth > 0
+
         d = getArea(d)
-        level = @colourScales.level(d.total)
+        value = sectorValue(d)
+        level = @colourScales.level(value)
         "hsl(0, 0%, #{level}%)"
 
       ).each(stash)
-
 
     bindEvents.call(this)
     this

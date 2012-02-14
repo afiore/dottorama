@@ -14,11 +14,8 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/slider.js"></script>
-<script type="text/javascript" src="/miur_aree.js"></script>
 <script type="text/javascript" src="js/sunburst.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
-<!--script type="text/javascript" src="js/sunburst.js"></script-->
-<!--script type="text/javascript" src="js/application.js"></script-->
 
 </head>
 <body>
@@ -28,7 +25,12 @@
       <h2>Visualisazzazione dei dottorati assegnati dal <acronym title="Ministero Italiano Universita' e Ricerca">MIUR<acronym></h2>
     </header>
      <article>
-       <%= yield %>
+       <div>
+         <label for="ciclo">Ciclo</label>
+         <input id="ciclo-slider" name="ciclo" type="range" min="19" max="26" value="19" />
+         <output for="ciclo-slider"></output>
+       </div>
+       <div id="chart"></div>
      </article>
      <footer><p> <a href="http://twitter.com/a_fiore">Andrea</a> Built this</p></footer> 
 </section>

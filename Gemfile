@@ -1,17 +1,16 @@
 source "http://rubygems.org"
 
 group :development do
-  gem "pry"
-  gem "coffee-script"
-  gem "rack-coffee"
+  gem "guard"
+  gem "guard-coffeescript"
 end
 
 group :default do
   gem "escape_utils"
   gem "ohm"
   gem "ohm-contrib"
-  gem "sinatra", :require => "sinatra/base"
-  gem "sinatra-contrib"
+  gem "stasis"
+  gem "progressbar"
   gem "nokogiri"
 end
 
