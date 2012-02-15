@@ -53,7 +53,9 @@ module Miur
           {:name => key, :human_name => sector_name(area_id, key), :frequencies => values }
         end
 
-        {:name => area_id, :human_name => area_name(area_id), :children => children }
+        {:name => area_id, :human_name => area_name(area_id), :children => children, :frequencies => 
+           Hash[Statistiche::CICLI.to_a.map { |ciclo| [ciclo, Dottorato.find(:ciclo => "%02d" % ciclo, :area => area_id).size ] }]
+        }
       end
     end
 
@@ -76,3 +78,5 @@ require "models"
 require "scraper"
 require "statistiche"
 
+require "pry"
+binding.pry

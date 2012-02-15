@@ -15,6 +15,16 @@ module Miur
         end]
       end
 
+      def co_occurrencies_averages(co_occurrencies)
+        Hash[co_occurrencies.map do |sector, distributions_per_cycle|
+          data = distributions_per_cycle.map do |(cycle, data)| 
+            [cycle,
+             data.values.reduce(0.0) { |sum, count| sum + count } / data.size]
+          end
+          [sector, data]
+        end]
+      end
+
 
       def sector_distributions
         # looks up area code by sector name

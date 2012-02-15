@@ -18,8 +18,8 @@ arcTween = (a) ->
     arc(b)
 
 
-sectorValue = (item) ->
-   _.chain(item.children).map((sector) -> sector.frequencies[app.ciclo]).reduce((a, b) -> a + b ).value()
+sectorValue = (d) ->
+  d?.frequencies?[app.ciclo] || 0
 
 # 
 # id for the delayed call to app.api.fetchOccurencies, used to display related sectors 
@@ -29,10 +29,37 @@ sectorValue = (item) ->
 tick = null
 
 eventHandlers = 
+  click:
+    #
+    # Fetches a list of related research sectors
+    #
+    # d - The d3 datum associated to the current event target element.
+    #
+    # Returns nothing.
+    #
+    fetchRelatedSectors: (d) ->
+      tick = setTimeout =>
+        app.api.fetchOccurencies(d.name, 19)
+          .then (data) => 
+            data = _.map(data, (count, key) -> [key, count])[0.. data.length / 5]
+
+            nodes = data.map (item) -> item[0]
+
+            @vis.selectAll('path').filter((node) ->
+              nodes.indexOf(node.name) > -1
+            ).style("fill", (d) =>
+              parent = getArea(d)
+              colour = d3.hsl(@colourScales.hue(parent.name), 1, 0.5)
+              colour.toString()
+            )
+      , 1000
+
   mouseover:
 
     displayTooltip: (d, element) ->
       text = d.human_name or d.name
+      text += " ( #{d?.frequencies?[app.ciclo] })"
+
       area = getArea(d)
       d = area if d.depth == 1
       colour = d3.hsl @colourScales.hue(area.name), 1, 0.5
@@ -61,30 +88,6 @@ eventHandlers =
       @vis.selectAll("path")
         .filter( (dd)-> dd == d or dd.parent == d )
         .style("fill", elementColour.toString())
-
-    #
-    # Fetches a list of related research sectors
-    #
-    # d - The d3 datum associated to the current event target element.
-    #
-    # Returns nothing.
-    #
-    fetchRelatedSectors: (d) ->
-      tick = setTimeout =>
-        app.api.fetchOccurencies(d.name, 19)
-          .then (data) => 
-            data = _.map(data, (count, key) -> [key, count])[0.. data.length / 3]
-
-            nodes = data.map (item) -> item[0]
-
-            @vis.selectAll('path').filter((node) ->
-              nodes.indexOf(node.name) > -1
-            ).style("fill", (d) =>
-              parent = getArea(d)
-              colour = d3.hsl(@colourScales.hue(parent.name), 1, 0.5)
-              colour.toString()
-            )
-      , 1000
 
   mouseout:
     hideTooltip: (d) ->
@@ -115,16 +118,16 @@ areaName = (d) ->
 
 bindEvents = () ->
   @vis.selectAll("path")
+    .on("mousemove", (d, i) => eventHandlers.mousemove.moveTooltip.call this)
     .on("mouseover", (d, i) => app.utils.applyAll  _.values(eventHandlers.mouseover), [d, i], this)
     .on("mouseout",  (d, i) => app.utils.applyAll  _.values(eventHandlers.mouseout), [d, i], this)
-    .on("mousemove", (d, i) => eventHandlers.mousemove.moveTooltip.call this)
+    .on("click",     (d, i) => app.utils.applyAll   _.values(eventHandlers.click), [d, i], this)
+
 
 
 class @app.SunburstGraph
-  constructor: (data, @selector = "#chart", @options = {}) ->
+  constructor: (@data, @selector = "#chart", @options = {}) ->
     _.defaults(@options, width: 700, height:700)
-
-    this.setData(data)
 
     r = Math.min(@options.width, @options.height) / 2
 
@@ -135,18 +138,14 @@ class @app.SunburstGraph
       .attr("transform", "translate(" + @options.width / 2 + "," + @options.height / 2 + ")")
 
     @partition = d3.layout.partition()
-      .sort(null)
-      .size([2 * Math.PI, r * r])
-      .value((d) -> 1)
-      .children((d) -> 
-        if d and d.children
-          d.children
+      .sort( (a, b) -> 
+        if b.frequencies && a.frequencies
+          b.frequencies[app.ciclo] - a.frequencies[app.ciclo]
         else
-          return unless d && d.frequencies
-          value = d.frequencies[app.ciclo]
-          _.map(_.range(1, value/20), -> {})
+          1
 
-      )
+      ).size([2 * Math.PI, r * r])
+      .value(sectorValue)
 
     @arc = d3.svg.arc()
       .startAngle((d) -> d.x)
@@ -158,17 +157,7 @@ class @app.SunburstGraph
       .append("div")
       .attr("class", "tooltip")
 
-
-  setData: (@data) ->
-    sectorNames  = _.map @data.children, (item) -> item.name
-    sectorValues = _.map @data.children, sectorValue
-
-
-    @colourScales = 
-      hue: d3.scale.ordinal().domain(sectorNames).rangePoints([0, 359])
-      level: d3.scale.ordinal().domain(sectorValues).rangeRoundBands([0, 100])
-    this
-
+    this.setColourScales()
 
   render: ->
 
@@ -188,8 +177,7 @@ class @app.SunburstGraph
         return unless d.depth > 0
 
         d = getArea(d)
-        value = sectorValue(d)
-        level = @colourScales.level(value)
+        level = @colourScales.level(d.frequencies[app.ciclo])
         "hsl(0, 0%, #{level}%)"
 
       ).each(stash)
@@ -197,8 +185,35 @@ class @app.SunburstGraph
     bindEvents.call(this)
     this
 
-  reset: ( data = null )-> 
-    @vis.selectAll("g").data([]).exit().remove()
-    this.setData data
-    this
+  setColourScales: ->
+    sectorNames  = _.map @data.children, (item) -> item.name
+    sectorValues = _.map(@data.children, sectorValue).sort (a, b) -> b - a
+
+    console.info "sectorValues: #{sectorValues}"
+
+    @colourScales = 
+      hue: d3.scale.ordinal().domain(sectorNames).rangePoints([0, 359])
+      level: d3.scale.ordinal().domain(sectorValues).rangeRoundBands([0, 100])
+
+  update: ->
+    this.setColourScales()
+
+    @vis.selectAll("path")
+      .data(@partition.value sectorValue)
+      .transition()
+      .duration(1000)
+      .style("fill", (d) =>  
+        d = getArea(d)
+        level = @colourScales.level(sectorValue(d))
+        console.info "#{d.human_name}: level #{level}, value: #{sectorValue(d)}"
+        "hsl(0, 0%, #{level}%)"
+
+      ).attrTween("d", (a) => 
+        i = d3.interpolate(x: a.x0, dx: a.dx0, a)
+        (t) => 
+          b = i(t)
+          a.x0 = b.x
+          a.dx0 = b.dx
+          @arc(b)
+      )
 

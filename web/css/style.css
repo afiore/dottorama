@@ -1,7 +1,9 @@
+#section { position: absolute }
+
 #chart {
   position: absolute;
   border: 1px solid #000;
-  width: 710px;
+  width: 860px;
 }
 
 div.tooltip {
@@ -23,6 +25,5 @@ input[type="range"]::-webkit-slider-thumb{
   background: red;
   width: 10px;
   height: 10px;
-
 }
 
