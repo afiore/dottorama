@@ -1,5 +1,6 @@
 bootstrap = ->
 
+  # initialise the slider widget
   # Fetch data and render graph
   app.api.fetchDistributions().then (data) ->
     graph  = new app.SunburstGraph(data).render()
@@ -10,7 +11,7 @@ bootstrap = ->
     data
   .end
 
-  # initialise the slider widget
+
 
 
 document.addEventListener "DOMContentLoaded", bootstrap

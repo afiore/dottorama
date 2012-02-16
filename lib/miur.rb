@@ -43,8 +43,12 @@ module Miur
         progress_bar.inc
       end
 
+      data.merge! areadata
+
+      average_distributions = Statistiche::co_occurrencies_averages(data)
+
       progress_bar.finish
-      [sector_distributions, data.merge(areadata)]
+      [sector_distributions, data, average_distributions]
     end
 
     def d3_format(data)
@@ -78,5 +82,3 @@ require "models"
 require "scraper"
 require "statistiche"
 
-require "pry"
-binding.pry

@@ -2,12 +2,12 @@
 
 #chart {
   position: absolute;
-  border: 1px solid #000;
+  left: 20px;
   width: 860px;
 }
 
-div.tooltip {
 
+div.tooltip {
   height: 25px;
   position: absolute;
   color: white;

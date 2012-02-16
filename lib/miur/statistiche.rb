@@ -16,12 +16,8 @@ module Miur
       end
 
       def co_occurrencies_averages(co_occurrencies)
-        Hash[co_occurrencies.map do |sector, distributions_per_cycle|
-          data = distributions_per_cycle.map do |(cycle, data)| 
-            [cycle,
-             data.values.reduce(0.0) { |sum, count| sum + count } / data.size]
-          end
-          [sector, data]
+        Hash[CICLI.to_a.map do |cycle|
+          [cycle, co_occurrencies.values.map { |hash| hash[cycle].values }.flatten.reject(&:nil?).average]
         end]
       end
 
@@ -43,5 +39,11 @@ module Miur
       end
 
     end
+  end
+end
+
+class Array
+  def average
+    self.reduce(0.0) { |sum, n| sum + n } / self.size
   end
 end
