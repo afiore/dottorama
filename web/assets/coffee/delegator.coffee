@@ -2,11 +2,13 @@ getDatum = (element) ->
   element.__data__
 
 class @app.Delegator
-  constructor: (@element) ->
+  constructor: (@element, @options={}) ->
     @element = document.querySelector(@element) if typeof @element == "string"
     this.bindEvents()
 
   bindEvents: ->
+    return unless @events
+
     for sel, functionName of @events
       [selector..., event] = sel.split " "
       this.addEvent selector.join(' '), event, functionName

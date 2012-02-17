@@ -34,13 +34,20 @@ module Miur
         Hash[stats.group_by(&lookup_area).map { |k, v| [k, Hash[v]] }]
       end
 
-      def sector_distributions_averages(distributions)
+      def max_per_cycle(distributions)
+        frequencies = []
 
-        averages = distributions.values.reduce({}) do |memo, item|
-          item.each { |k, v| memo[k] = v.values.reject {|n| !n.is_a? Integer }.average }
+        distributions.each do |area, sectors|
+          sectors.each do |sector_name, freqs| 
+            freqs.each { |freq|  frequencies << freq }
+          end
         end
 
-        Hash[CICLI.to_a.map { |ciclo| [ciclo, averages.map {|k, v| v[ciclo.to_s] }.average ]} ]
+        max_per_cycle = Array(CICLI).map do |ciclo| 
+          [ciclo, frequencies.select {|cycle, *freq| ciclo.to_s == cycle.to_s }.map { | cycle, *freq | freq }.max ] 
+        end
+
+        Hash[max_per_cycle]
       end
 
     end

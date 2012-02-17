@@ -6,6 +6,17 @@
   width: 860px;
 }
 
+#barchart {
+  position: absolute;
+  left: 800px;
+  top: 10px;
+}
+
+#barchart rect {
+  stroke: white;
+  fill: #a3a3a3;
+}
+
 
 div.tooltip {
   height: 25px;
@@ -26,4 +37,5 @@ input[type="range"]::-webkit-slider-thumb{
   width: 10px;
   height: 10px;
 }
+
 

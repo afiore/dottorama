@@ -1,4 +1,28 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
+require 'guard/guard'
+
+module ::Guard
+  class Stasis < ::Guard::Guard
+    def start
+    end
+    def run_on_change(paths)
+      `stasis`
+      ::Guard::Notifier.notify("Stasis successfully run", :title => 'stasis')
+    end
+    def run_all
+      true
+    end
+  end
+end
+
+guard 'stasis' do
+  watch %r{^css/(.+)\.css}
+  watch %r{^index.html.erb$}
+end
+
+
+
 guard 'coffeescript', :input => 'assets/coffee', :output => 'public/js'
+

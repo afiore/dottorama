@@ -1,5 +1,3 @@
-
-
 getArea = (d) ->
     d = d.parent while d.parent and d.parent.name != 'Root'
     d
@@ -17,18 +15,8 @@ arcTween = (a) ->
     a.dx0 = b.dx
     arc(b)
 
-
 sectorValue = (d) ->
   d?.frequencies?[app.ciclo] || 0
-
-
-
-# 
-# id for the delayed call to app.api.fetchOccurencies, used to display related sectors 
-# when the user mouse hovers on a sector for more than 1 second.
-#
-#
-tick = null
 
 class @app.SunburstGraph extends @app.Delegator
 
@@ -39,9 +27,14 @@ class @app.SunburstGraph extends @app.Delegator
     "path mousemove": "onMousemove"
 
 
+  #TODO: 
+  #
+  # Refactor this, data should be passed in as an argument of 
+  # the #render() method.
+  #
+  # 
   constructor: (@data, @element = "#chart", @options = {}) ->
     _.defaults(@options, width: 700, height:700)
-
     r = Math.min(@options.width, @options.height) / 2
 
     @vis = d3.select(@element).append("svg")
@@ -61,12 +54,15 @@ class @app.SunburstGraph extends @app.Delegator
       .innerRadius((d) -> Math.sqrt(d.y))
       .outerRadius((d) -> Math.sqrt(d.y + d.dy))
 
-    @tooltip = d3.select("body")
-      .append("div")
-      .attr("class", "tooltip")
+    # TODO: 
+    # implement some sort of pub/sub so that
+    # objects can bind and respond to each other events..
+    #
+    @tooltip = new app.Tooltip graph: this
+    @barchart = @options.barchart
 
     this.setColourScales()
-    super @element
+    super @element, @options
 
   render: ->
 
@@ -97,7 +93,6 @@ class @app.SunburstGraph extends @app.Delegator
     sectorNames  = (name for {name: name} in @data.children)
     sectorValues = (sectorValue child for child in @data.children).sort (a, b) -> b - a
 
-
     @colourScales = 
       hue: d3.scale.ordinal().domain(sectorNames).rangePoints([0, 359])
       level: d3.scale.ordinal().domain(sectorValues).rangeRoundBands([0, 100])
@@ -124,33 +119,21 @@ class @app.SunburstGraph extends @app.Delegator
       )
 
   onMouseover: (event, d) ->
-    this._displayTooltip(event, d)._colouriseSector(d)
+    this._colouriseSector(d)
+    @tooltip.show(d)
 
   onMouseout: (event, d) ->
-    this._hideTooltip(d)._downlightSector(d)._clearTimeout(event)
+    this._downlightSector(d)
+    @tooltip.hide()
+
 
   onClick: (event, d) ->
     this._fetchRelatedSectors(d)
+    @barchart.render(event, d)
 
   onMousemove: (event) ->
-    @tooltip
-      .style("top",  (event.pageY - 10) + "px")
-      .style("left", (event.pageX + 10) + "px")
+    @tooltip.move(event)
 
-  _displayTooltip: (event, d) ->
-    text = d.human_name or d.name
-    text += " ( #{d?.frequencies?[app.ciclo] })"
-
-    area = getArea(d)
-    d = area if d.depth == 1
-    colour = d3.hsl @colourScales.hue(area.name), 1, 0.5
-
-    if d and text
-      @tooltip.text(text)
-        .style("visibility", "visible")
-        .style("background", colour.toString())
-
-    this
 
   # 
   # Highlights the current research sector
@@ -174,17 +157,10 @@ class @app.SunburstGraph extends @app.Delegator
 
     this
 
-  _hideTooltip: (d) ->
-    @tooltip.style("visibility", "hidden")
-    this
 
   _downlightSector: (d) ->
     d = getArea(d)
     @vis.selectAll("path").style("fill", (d) -> d.fill0)
-    this
-
-  _clearTimeout: ->
-    clearTimeout(tick)
     this
 
   #
@@ -193,23 +169,20 @@ class @app.SunburstGraph extends @app.Delegator
   # Returns nothing.
   #
   _fetchRelatedSectors: (d) ->
-    tick = setTimeout =>
       app.api.fetchOccurencies(d.name, app.ciclo).then (args) =>
-
         [data, average] = args
 
         relevant = ([sector, count] for sector, count of data when count >= average)
         nodes    = (sector for [sector, count] in relevant)
 
         @vis.selectAll('path').filter((node) ->
-
           nodes.indexOf(node.name) > -1
+
         ).style("fill", (d) =>
           parent = getArea(d)
           colour = d3.hsl(@colourScales.hue(parent.name), 1, 0.5)
           colour.toString()
         )
 
-    , 1000
     this
 
