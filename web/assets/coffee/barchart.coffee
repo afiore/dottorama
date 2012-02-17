@@ -41,6 +41,7 @@ class @app.Barchart extends @app.Delegator
 
   render: (event, datum) ->
     if @initialised then this.refresh datum else this._initialize datum
+    this._colorise(event)
     this
 
   refresh: (datum) ->
@@ -48,7 +49,13 @@ class @app.Barchart extends @app.Delegator
       .data(getFrequencies datum)
       .transition()
       .duration(1000)
+      .attr("y", (d, i) => @options.height - height(d))
       .attr("height", height)
+    this
+
+  _colorise: (event) ->
+    @selection.selectAll("rect")
+      .style("fill", d3.select(event.target).style "fill")
     this
 
   _initialize: (datum) ->

@@ -9,7 +9,7 @@
 #barchart {
   position: absolute;
   left: 800px;
-  top: 10px;
+  top: 150px;
 }
 
 #barchart rect {

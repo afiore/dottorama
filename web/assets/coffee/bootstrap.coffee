@@ -5,7 +5,7 @@ bootstrap = ->
   app.api.fetchDistributions().then( (data) ->
     app.api.fetchDistributionAverage(19).then((maxValue) ->
 
-      barchart = new app.Barchart "#barchart", maxValue: maxValue, height: 150, bar_width: 20
+      barchart = new app.Barchart "#barchart", maxValue: maxValue, height: 50, bar_width: 20
       graph  = new app.SunburstGraph(data, "#chart", barchart: barchart).render()
 
       #perhaps the slider should be hidden
