@@ -27,9 +27,13 @@ module Miur
       sectors = Settore.all.map(&:nome)
       areas   =  Area.all.map(&:nome)
 
-      progress_bar = ProgressBar.new("sector-distributions", 2)
+      progress_bar = ProgressBar.new("sector-distributions", 3)
       sector_distributions = Statistiche::sector_distributions; progress_bar.inc
+      sector_averages = Statistiche::sector_distributions_averages(sector_distributions); progress_bar.inc
+      binding.pry
       sector_distributions = d3_format(sector_distributions.reject { |(k,v)| k.nil? }); progress_bar.inc && progress_bar.finish
+
+
 
       progress_bar = ProgressBar.new("sector-co-occurrencies", sectors.size + areas.size)
 
@@ -48,7 +52,7 @@ module Miur
       average_distributions = Statistiche::co_occurrencies_averages(data)
 
       progress_bar.finish
-      [sector_distributions, data, average_distributions]
+      [sector_distributions, sector_averages, data, average_distributions]
     end
 
     def d3_format(data)
@@ -81,4 +85,7 @@ Miur.const_set(:AREE, YAML::load_file("#{lib_path}/aree.yml"))
 require "models"
 require "scraper"
 require "statistiche"
+require "pry"
+
+Miur::build_datasets
 

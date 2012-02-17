@@ -1,8 +1,8 @@
 module Miur
   module Statistiche
     CICLI = 19..26
-    class << self
 
+    class << self
       def co_occurrencies(attribute, value, cicles=CICLI.to_a)
         stats = {}
         stats[value] = Hash[Array(cicles).map do |ciclo|
@@ -21,21 +21,26 @@ module Miur
         end]
       end
 
-
       def sector_distributions
         # looks up area code by sector name
-
         lookup_area = proc { |(nome_settore, distribuzioni)|
           area_id, _ = *AREE.detect { |area_id, data| data[:settori].detect { |settore| settore[:id] == nome_settore }}
           area_id
         }
-
         stats = Settore.all.map(&:nome).each_with_object({}) do |settore, stats|
           stats[settore] = Hash[CICLI.map { |ciclo| [ciclo.to_s, Dottorato.find(:ciclo => ciclo, :settore => settore).size ]}]
         end
-        Hash[stats.group_by(&lookup_area).
-             map { |k, v| [k, Hash[v]] }
-        ]
+
+        Hash[stats.group_by(&lookup_area).map { |k, v| [k, Hash[v]] }]
+      end
+
+      def sector_distributions_averages(distributions)
+
+        averages = distributions.values.reduce({}) do |memo, item|
+          item.each { |k, v| memo[k] = v.values.reject {|n| !n.is_a? Integer }.average }
+        end
+
+        Hash[CICLI.to_a.map { |ciclo| [ciclo, averages.map {|k, v| v[ciclo.to_s] }.average ]} ]
       end
 
     end
