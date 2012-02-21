@@ -1,0 +1,45 @@
+#section { position: absolute }
+
+#chart {
+  position: absolute;
+  left: 20px;
+  width: 860px;
+}
+
+#barchart-panel {
+  position: absolute;
+  left: 800px;
+  top: 120px;
+}
+
+g.barchart {
+  border: 1px solid red;
+}
+
+.barchart rect {
+  stroke: white;
+  fill: grey;
+}
+
+
+div.tooltip {
+  height: 25px;
+  position: absolute;
+  color: white;
+  font-width: bold;
+  z-index: 10;
+}
+
+input[type="range"]{
+   -webkit-appearance:none !important;
+   background: gray;
+ }
+
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none !important;
+  background: #000;
+  width: 10px;
+  height: 10px;
+}
+
+

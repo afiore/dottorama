@@ -1,1 +1,44 @@
-My GitHub Page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=620">
+<title>Dottorama: visualizzazione dei dottorati assegnati dal Ministero Italiano dell'Universita' e della Ricerca</title>
+<link rel="stylesheet" href="css/style.css">
+
+<script type="text/javascript" src="js/vendor/underscore-min.js"></script>
+<script type="text/javascript" src="js/vendor/q.min.js"></script>
+<script type="text/javascript" src="js/vendor/html5slider.js"></script>
+<script type="text/javascript" src="js/vendor/d3/d3.min.js"></script>
+<script type="text/javascript" src="js/vendor/d3/d3.layout.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/delegator.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/tooltip.js"></script>
+<script type="text/javascript" src="js/barchart.js"></script>
+<script type="text/javascript" src="js/barchart-panel.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/sunburst.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+</head>
+<body>
+<section id="wrapper">
+    <header>
+      <h1>Dottorama</h1>
+      <h2>Visualisazzazione dei dottorati assegnati dal <acronym title="Ministero Italiano Universita' e Ricerca">MIUR<acronym></h2>
+    </header>
+     <article>
+       <div>
+         <label for="ciclo">Ciclo</label>
+         <input id="ciclo-slider" name="ciclo" type="range" min="19" max="26" value="19" />
+         <output for="ciclo-slider"></output>
+       </div>
+       <div id="chart"></div>
+       <div id="barchart-panel"></div>
+     </article>
+     <footer><p> <a href="http://twitter.com/a_fiore">Andrea</a> Built this</p></footer> 
+</section>
+</body>
+</html>
+
