@@ -6,15 +6,19 @@
   width: 860px;
 }
 
-#barchart {
+#barchart-panel {
   position: absolute;
   left: 800px;
-  top: 150px;
+  top: 120px;
 }
 
-#barchart rect {
+g.barchart {
+  border: 1px solid red;
+}
+
+.barchart rect {
   stroke: white;
-  fill: #a3a3a3;
+  fill: grey;
 }
 
 
@@ -33,7 +37,7 @@ input[type="range"]{
 
 input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance:none !important;
-  background: red;
+  background: #000;
   width: 10px;
   height: 10px;
 }
