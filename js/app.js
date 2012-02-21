@@ -21,7 +21,7 @@
         if (ciclo == null) ciclo = 19;
         deferred = (distributionAverages && Q.call(function() {
           return distributionAverages;
-        })) || fetchDataset("/data/_average_distributions.json");
+        })) || fetchDataset("data/_average_distributions.json");
         return deferred.then(function(data) {
           var cycle, maxFreq, maxVal;
           distributionAverages = data;
@@ -39,7 +39,7 @@
       },
       fetchDistributions: function(ciclo) {
         if (ciclo == null) ciclo = 19;
-        return fetchDataset("/data/distributions.json").then(function(data) {
+        return fetchDataset("data/distributions.json").then(function(data) {
           return {
             name: "Root",
             children: data
@@ -50,7 +50,7 @@
         if (ciclo == null) ciclo = 19;
         return this._fetchOccurencyAverages(ciclo).then(function(average) {
           value = encodeURIComponent(value.replace(/\//g, '-'));
-          return fetchDataset("/data/" + value + "_co-occurrencies.json").then(function(data) {
+          return fetchDataset("data/" + value + "_co-occurrencies.json").then(function(data) {
             return [data[ciclo.toString()], average];
           });
         });
