@@ -98,6 +98,7 @@ class @app.SunburstGraph extends @app.Delegator
       level: d3.scale.ordinal().domain(sectorValues).rangeRoundBands([0, 100])
 
   update: ->
+    @barchartPanel.clear()
     this.setColourScales()
 
     @vis.selectAll("path")

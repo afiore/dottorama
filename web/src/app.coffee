@@ -31,5 +31,5 @@ distributionAverages = null
         occurrencyAverages = data
         data[ciclo]
 
-@app.__defineGetter__ "ciclo", -> @_ciclo || "19"
+@app.__defineGetter__ "ciclo", -> @_ciclo or "19"
 @app.__defineSetter__ "ciclo", (ciclo) -> @_ciclo = ciclo
