@@ -1,5 +1,6 @@
 fs     = require 'fs'
 {exec} = require 'child_process'
+{puts} = require 'util'
 
 appFiles  = [
   'app',
@@ -12,7 +13,6 @@ appFiles  = [
   'tooltip',
   'bootstrap'
 ]
-
 task 'build', 'Build single application file from source files', ->
   appContents = new Array remaining = appFiles.length
 
@@ -30,9 +30,27 @@ task 'build', 'Build single application file from source files', ->
         console.log stdout + stderr
         fs.unlink 'js/app.coffee', (err) ->
           throw err if err
-          console.log 'Done.'
+          console.log 'Done compiling'
 
 task 'minify', 'Minify the resulting application file after build', ->
   exec 'java -jar "/home/andrea/bin/closure-compiler.jar" --js js/app.js --js_output_file js/app.production.js', (err, stdout, stderr) ->
     throw err if err
     console.log stdout + stderr
+
+task 'release-name', "print the next release version to standard output", ->
+  exec "git tag -l", (err, stdout, stderr) ->
+    _last = (array) -> array[array.length - 1]
+
+    tags = (tag.replace(/^v/,'').split(".") for tag in stdout.split("\n") when /^v(\d+).(\d+)./.test(tag) )
+
+    tag = "v" + (if tags.length
+      (_last tags).map (n, i) -> if i == (_last tags).length - 1 then (parseInt n)+1 else n
+    else
+      [0, 0, 1]
+    ).join "."
+
+    puts tag
+
+
+
+
