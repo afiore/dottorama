@@ -23,7 +23,7 @@ echo "git tag -a ${releasename}"
 cp -r public $tmpdir
 git checkout gh-pages
 cd .. 
-rm .git/index && git clean -fdx
+pwd
 cp -r $tmpdir/* .
 
 mv index-production.html index.html
