@@ -26,7 +26,7 @@ distributionAverages = null
           [data[ciclo.toString()], average]
 
     _fetchOccurencyAverages: (ciclo = 19) ->
-      deferred = (occurrencyAverages && Q.call -> occurrencyAverages) || fetchDataset "/data/average_co-occurencies.json"
+      deferred = (occurrencyAverages && Q.call -> occurrencyAverages) || fetchDataset "data/average_co-occurencies.json"
       deferred.then (data) ->
         occurrencyAverages = data
         data[ciclo]
