@@ -289,6 +289,7 @@
 
     SunburstGraph.prototype.update = function() {
       var _this = this;
+      this.barchartPanel.clear();
       this.setColourScales();
       return this.vis.selectAll("path").data(this.partition.value(sectorValue)).transition().duration(1000).style("fill", function(d) {
         var level;
