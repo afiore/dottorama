@@ -116,7 +116,9 @@
         return _this[functionName].apply(_this, arguments);
       };
       return this.element.addEventListener(eventName, function(event) {
-        if (_.include(_this.element.querySelectorAll(selector), event.target)) {
+        var selection;
+        selection = selector ? _this.element.querySelectorAll(selector) : [_this.element];
+        if (_.include(selection, event.target)) {
           return closure(event, getDatum(event.target));
         }
       });
@@ -140,7 +142,7 @@
     __extends(Slider, _super);
 
     Slider.prototype.events = {
-      mouseup: "onMouseUp"
+      "mouseup": "onMouseUp"
     };
 
     function Slider(element, options) {
@@ -360,6 +362,8 @@
     SunburstGraph.prototype._downlightAll = function(d) {
       this.vis.selectAll("path").style("fill", function(d) {
         return d.fill0;
+      }).each(function(d) {
+        return d.active = false;
       });
       return this;
     };
@@ -455,14 +459,14 @@
         h = height(d);
         heights.push(h);
         return h;
-      }).style("stroke", "none");
+      });
       this.selection.append("rect").attr("x", function() {
         return (app.ciclo - 19) * _this.options.bar_width;
       }).attr("y", function() {
         return _this.options.y + _this.options.height - height(datum.co_occurencies);
       }).attr("width", this.options.bar_width).attr("height", function() {
         return height(datum.co_occurencies);
-      }).style("fill", this.options.sector.colour).style("stroke", "none");
+      }).style("fill", this.options.sector.colour);
       node = this.selection.append("text").attr("x", function() {
         return (data.length * _this.options.bar_width) + 10;
       }).attr("y", function() {
@@ -600,7 +604,9 @@
         graph = new app.SunburstGraph(data, "#chart", {
           barchartPanel: panel
         }).render();
-        slider = new app.Slider("#ciclo-slider", graph);
+        slider = new app.Slider("#ciclo-slider", {
+          graph: graph
+        });
         return null;
       }, function(error) {
         throw error;
