@@ -9,7 +9,7 @@ distributionAverages = null
 @app = 
   api:
     fetchDistributionAverage: (ciclo=19) ->
-      deferred = (distributionAverages && Q.call -> distributionAverages) || fetchDataset("data/_average_distributions.json")
+      deferred = (distributionAverages && Q.call -> distributionAverages) || fetchDataset("data/average_distributions.json")
       deferred.then (data) ->
         distributionAverages = data
         maxVal = _.max (maxFreq for cycle, [maxFreq] of data )
@@ -26,7 +26,7 @@ distributionAverages = null
           [data[ciclo.toString()], average]
 
     _fetchOccurencyAverages: (ciclo = 19) ->
-      deferred = (occurrencyAverages && Q.call -> occurrencyAverages) || fetchDataset "/data/_average_co-occurencies.json"
+      deferred = (occurrencyAverages && Q.call -> occurrencyAverages) || fetchDataset "/data/average_co-occurencies.json"
       deferred.then (data) ->
         occurrencyAverages = data
         data[ciclo]

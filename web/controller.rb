@@ -14,8 +14,8 @@ helpers do
       File.open("data/#{sector}_co-occurrencies.json", "w") { |file| file.write(data.to_json) }
     end
 
-    File.open("data/_average_distributions.json", "w")  { |file| file.write(@distribution_averages.to_json) }
-    File.open("data/_average_co-occurencies.json", "w") { |file| file.write(@averages.to_json) }
+    File.open("data/average_distributions.json", "w")  { |file| file.write(@distribution_averages.to_json) }
+    File.open("data/average_co-occurencies.json", "w") { |file| file.write(@averages.to_json) }
   end
 end
 
