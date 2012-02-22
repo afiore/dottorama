@@ -17,7 +17,8 @@ class @app.Delegator
     closure = => this[functionName].apply(this, arguments)
 
     @element.addEventListener eventName, (event) =>
-      closure event, getDatum(event.target) if _.include @element.querySelectorAll(selector), event.target
+      selection = if selector then @element.querySelectorAll(selector) else [@element]
+      closure event, getDatum(event.target) if _.include selection, event.target
 
 
 

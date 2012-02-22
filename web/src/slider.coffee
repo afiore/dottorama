@@ -1,20 +1,15 @@
-eventHandlers =
-  mouseup: 
-    showOutput: (event) ->
-      @container.querySelector("output").value = event.target.value
+class @app.Slider extends @app.Delegator
+  events:
+    "mouseup": "onMouseUp"
 
-    updateGraph: (event) ->
-      app.ciclo = event.target.value
-      @graph.update()
+  constructor: (element, options) ->
+    super element, options
+    @graph = options.graph
 
+  onMouseUp: (event) ->
+    container = event.target.parentElement
+    container.querySelector("output").value = event.target.value
 
-
-
-class @app.Slider
-  constructor: (@selector, @graph) ->
-    @element = document.querySelector(@selector)
-    @container = @element.parentNode
-    @element.addEventListener "mouseup", (event) => app.utils.applyAll _.values(eventHandlers.mouseup), [event], this
-
-
-@app.__defineGetter__("ciclo", -> app._ciclo or 19 )
+    # Update sunburst graph
+    app.ciclo = event.target.value
+    @graph.update()

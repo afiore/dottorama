@@ -51,7 +51,6 @@ class @app.Barchart extends @app.Delegator
       .attr("height", (d) ->
         h = height(d); heights.push h; return h
       )
-      .style "stroke", "none"
 
     # display co-occurrencies as an overlay
     @selection.append("rect")
@@ -60,7 +59,6 @@ class @app.Barchart extends @app.Delegator
       .attr("width", @options.bar_width)
       .attr("height", => height(datum.co_occurencies))
       .style("fill", @options.sector.colour)
-      .style "stroke", "none"
 
     # place a label with the sector name on the right end side of the barchart
     

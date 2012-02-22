@@ -27,7 +27,7 @@ class @app.SunburstGraph extends @app.Delegator
     "path mousemove": "onMousemove"
 
 
-  #TODO: 
+
   #
   # Refactor this, data should be passed in as an argument of 
   # the #render() method.
@@ -171,6 +171,7 @@ class @app.SunburstGraph extends @app.Delegator
   _downlightAll: (d) -> 
     @vis.selectAll("path")
       .style("fill", (d) -> d.fill0)
+      .each (d) -> d.active = false
 
     this
 

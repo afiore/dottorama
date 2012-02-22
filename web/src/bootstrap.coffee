@@ -7,7 +7,7 @@ bootstrap = ->
 
       panel = new app.BarchartPanel "#barchart-panel", maxSectorFrequency: maxValue
       graph  = new app.SunburstGraph(data, "#chart", barchartPanel: panel).render()
-      slider = new app.Slider "#ciclo-slider", graph
+      slider = new app.Slider "#ciclo-slider", graph:graph
 
       null
     , (error) -> throw error ).end()
