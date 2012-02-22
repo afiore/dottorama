@@ -16,13 +16,14 @@ timestamp=`coffee -e 'console.info (+ new Date)'`
 tmpdir="/tmp/${timestamp}-public"
 releasename=`cake release-name`
 
+stasis
+echo "copying tmpdir:${tmpdir}"
+cp -r public $tmpdir
+
 git add js/*.js
 git commit -m 'built new release: ${releasename}'
 git tag -a "${releasename}"
-stasis
 
-echo "copying tmpdir:${tmpdir}"
-cp -r public $tmpdir
 cd ..
 
 git checkout gh-pages
