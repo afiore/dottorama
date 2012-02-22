@@ -10,7 +10,7 @@ if [ $? -eq 0 ]
     exit 1
 fi
 
-
+cd web
 cake build && cake minify
 timestamp=`coffee -e 'console.info (+ new Date)'`
 tmpdir="/tmp/${timestamp}-public"
@@ -23,9 +23,7 @@ echo "git tag -a ${releasename}"
 cp -r public $tmpdir
 cd ..
 git checkout gh-pages
-ls -l
-#rm .git/index
-#git clean -fdx
-#cp -r $tmpdir/* .
-#mv index-production.html index.html
+rm -rf *
+cp -r $tmpdir/* .
+mv index-production.html index.html
 # git commit -a -m "pushing new release: #{v}"
