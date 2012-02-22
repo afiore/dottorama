@@ -21,7 +21,7 @@ echo "copying tmpdir:${tmpdir}"
 cp -r public $tmpdir
 
 git add js/*.js
-git commit -m 'built new release: ${releasename}'
+git commit -m "built new release: ${releasename}"
 git tag -a "${releasename}" -m "build ${releasename}"
 
 cd ..
