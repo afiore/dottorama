@@ -10,15 +10,15 @@ if [ $? -eq 0 ]
     exit 1
 fi
 
-cd web
-#cake build && cake minify
+cd web 
+cake build && cake minify
 timestamp=`coffee -e 'console.info (+ new Date)'`
 tmpdir="/tmp/${timestamp}-public"
 releasename=`cake release-name`
 
-echo "git add js/*.js"
-echo "git commit -m 'built new release: ${releasename}'"
-echo "git tag -a ${releasename}"
+git add js/*.js
+git commit -m 'built new release: ${releasename}'
+git tag -a "${releasename}"
 stasis
 
 echo "copying tmpdir:${tmpdir}"
@@ -26,7 +26,6 @@ cp -r public $tmpdir
 cd ..
 
 git checkout gh-pages
-rm -rf *
+rm -rf * && rm -rf web
 cp -r $tmpdir/* .
 mv index-production.html index.html
-# git commit -a -m "pushing new release: #{v}"
