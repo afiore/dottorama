@@ -21,10 +21,10 @@ echo "git commit -m 'built new release: ${releasename}'"
 echo "git tag -a ${releasename}"
 
 cp -r public $tmpdir
+cd ..
 git checkout gh-pages
-cd .. 
-pwd
+rm .git/index
+git clean -fdx
 cp -r $tmpdir/* .
-
 mv index-production.html index.html
 # git commit -a -m "pushing new release: #{v}"
