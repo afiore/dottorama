@@ -60,7 +60,7 @@
         if (ciclo == null) ciclo = 19;
         deferred = (occurrencyAverages && Q.call(function() {
           return occurrencyAverages;
-        })) || fetchDataset("data/averageoccurencies.json");
+        })) || fetchDataset("data/average_co-occurencies.json");
         return deferred.then(function(data) {
           occurrencyAverages = data;
           return data[ciclo];
