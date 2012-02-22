@@ -1,6 +1,6 @@
 require "../lib/miur.rb"
 
-ignore /Gemfile/, /src/, "Guardfile"
+ignore /Cakefile/, /src/, "Guardfile"
 priority "index.html.erb" => 2, /data/ => 1
 
 helpers do
