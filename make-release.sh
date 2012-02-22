@@ -20,6 +20,7 @@ echo "git add js/*.js"
 echo "git commit -m 'built new release: ${releasename}'"
 echo "git tag -a ${releasename}"
 
+echo "copying tmpdir:${tmpdir}"
 cp -r public $tmpdir
 cd ..
 git checkout gh-pages
