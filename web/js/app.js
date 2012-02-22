@@ -25,7 +25,7 @@
         if (ciclo == null) ciclo = 19;
         deferred = (distributionAverages && Q.call(function() {
           return distributionAverages;
-        })) || fetchDataset("data/_average_distributions.json");
+        })) || fetchDataset("data/average_distributions.json");
         return deferred.then(function(data) {
           var cycle, maxFreq, maxVal;
           distributionAverages = data;
@@ -64,7 +64,7 @@
         if (ciclo == null) ciclo = 19;
         deferred = (occurrencyAverages && Q.call(function() {
           return occurrencyAverages;
-        })) || fetchDataset("/data/_average_co-occurencies.json");
+        })) || fetchDataset("/data/average_co-occurencies.json");
         return deferred.then(function(data) {
           occurrencyAverages = data;
           return data[ciclo];
