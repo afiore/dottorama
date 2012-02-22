@@ -2,11 +2,12 @@
 
 git status|grep "working directory clean" > /dev/null
 
-if [ $? === 0 ]
-  echo "Git index is clean, going ahead"
-else
-  echo "You have uncommited changes; commit first, or you might loose data!"
-  exit 1
+if [ $? -eq 0 ] 
+  then
+    echo "Git index is clean, going ahead"
+  else
+    echo "You have uncommited changes; commit first, or you might loose data!"
+    exit 1
 fi
 
 
