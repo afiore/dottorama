@@ -22,7 +22,7 @@ cp -r public $tmpdir
 
 git add js/*.js
 git commit -m 'built new release: ${releasename}'
-git tag -a "${releasename} -m 'build ${releasename}'"
+git tag -a "${releasename} " -m "build ${releasename}"
 
 cd ..
 
